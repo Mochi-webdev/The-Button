@@ -1,0 +1,41 @@
+.ButtonGameCointainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.ButtonImage {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+.TopBar {
+    position: fixed;
+    top: 250px;
+    left: 15px;
+    width: 10%;
+    height: 75px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: #000 solid 4px;
+    
+    
+}
+.Clicks {
+    color: #000000;
+    font-size: 24px;
+    position: absolute;
+    text-decoration: solid 2px #000;
+    left: 25px;
+    padding-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+.ClickIcon {
+    width: 50px;
+    height: 50px;
+    margin-left: 10rem;
+}
