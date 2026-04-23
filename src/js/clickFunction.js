@@ -23,3 +23,10 @@ Button.addEventListener("click", function() {
         Button.src = Button.src.replace("-Down", "");
     }, 100);
 });
+
+var UpgradeButton = document.querySelector(".UpgradeButton");
+UpgradeButton.addEventListener("click", function() {
+    var UpgradeFrame = document.getElementById("UpgradeFrame");
+    UpgradeFrame.style.display = "none";
+
+});
