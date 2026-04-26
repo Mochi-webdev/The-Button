@@ -27,6 +27,9 @@ Button.addEventListener("click", function() {
 var UpgradeButton = document.querySelector(".UpgradeButton");
 UpgradeButton.addEventListener("click", function() {
     var UpgradeFrame = document.getElementById("UpgradeFrame");
-    UpgradeFrame.style.display = "none";
-
+    if (UpgradeFrame.style.display === "none" || UpgradeFrame.style.display === "") {
+        UpgradeFrame.style.display = "flex";
+    } else {
+        UpgradeFrame.style.display = "none";
+    }
 });
