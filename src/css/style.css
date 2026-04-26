@@ -158,12 +158,11 @@ html, body {
     height: 50%;
     transform: translate(50%, -50%);
     transform: translateX(50%);
-    
-    
-    
-    
-    
-    
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 .Container {
     width: 100%;
@@ -173,9 +172,58 @@ html, body {
     display: grid;
 }
 .titleHead {
-    align-self: left;
-   
-
-    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
     font-family: Arial, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+}
+.UpgradeItem {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: linear-gradient(180deg, #ffffff, #f8f9fa);
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.1);
+    color: #111;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.UpgradeItem:hover {
+    background: linear-gradient(180deg, #f8f9fa, #ffffff);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.15);
+}
+.BuyUpgrade {
+    margin-left: auto;
+    padding: 8px 16px;
+    background: linear-gradient(180deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.BuyUpgrade:hover {
+    background: linear-gradient(180deg, #45a049, #3e8e41);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.BuyUpgrade:active {
+    transform: translateY(0);
+}
+.UpgradeName {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+    color: #111;
 }
