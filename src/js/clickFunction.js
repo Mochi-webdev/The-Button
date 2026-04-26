@@ -2,11 +2,14 @@ var Button = document.querySelector(".ButtonImage");
 var Gems = localStorage.getItem("gems") || 0;
 var ClickIntervalGems = localStorage.getItem("clickIntervalGems") || 0;
 var Clicks = localStorage.getItem("clicks") || 0;
+var Upgrade1 = localStorage.getItem("Upgrade1")|| 0;
+var GemsBoost = 1 + Upgrade1 * 0.5 
+
 document.getElementById("ClickCount").textContent = Clicks;
 document.getElementById("GemCount").textContent = Gems;
 Button.addEventListener("click", function() {
     Clicks++;
-    localStorage.setItem("clicks", Clicks);
+    localStorage.setItem("clicks", Clicks*GemsBoost);
     if (ClickIntervalGems === 100) {
         ClickIntervalGems = 0;
         localStorage.setItem("clickIntervalGems", ClickIntervalGems);
