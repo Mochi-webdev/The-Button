@@ -58,5 +58,5 @@ function showPopup(message, type = 'info') {
     }, 3000); // Show for 3 seconds
 }
 
-// Expose globally
+
 window.showPopup = showPopup;
