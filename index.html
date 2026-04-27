@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="src/css/style.css">
   <script src="src/js/clickFunction.js" defer></script>
   <script src="src/js/popup.js" defer></script>
+  <script src="src/js/upgrades.js" defer></script>
 </head>
 
 <body>
@@ -39,23 +40,35 @@
     <div class="UpgradeFrame" id="UpgradeFrame">
       <button class="CloseUpgradeFrame" id="CloseUpgradeFrame">&times;</button>
       <h2 class="titleHead">Upgrades</h2>
+      <div class="ShopTabs">
+        <button class="ShopTab active" data-category="all">All</button>
+        <button class="ShopTab" data-category="clicks">Clicks</button>
+        <button class="ShopTab" data-category="gems">Gems</button>
+        <button class="ShopTab" data-category="automation">Automation</button>
+      </div>
       <div class="UpgradeList">
 
-        <div class="UpgradeItem">
-          <span class="UpgradeName">Auto Clicker</span>
-          <span class="UpgradeCost">Cost: 100 Clicks</span>
-          <button class="BuyUpgrade">Buy</button>
+
+        <div class="UpgradeItem common" data-category="clicks gems">
+          <span class="UpgradeName">ClickBoost</span>
+          <span id="UpgradeCostClickBoost" class="UpgradeCostClickBoost">Cost: 150 Clicks</span>
+          <button id="BuyUpgrade1" class="BuyUpgrade1">Buy</button>
         </div>
 
-         <div class="UpgradeItem">
+        <div class="UpgradeItem common" data-category="clicks automation">
           <span class="UpgradeName">Auto Clicker</span>
-          <span class="UpgradeCost">Cost: 100 Clicks</span>
-          <button class="BuyUpgrade">Buy</button>
+          <span id="UpgradeCostAutoClicker" class="UpgradeCostAutoClicker">Cost: 100 Clicks</span>
+          <button id="BuyUpgrade2" class="BuyUpgrade2">Buy</button>
         </div>
-        
+
       </div>
     </div>
+    <div class="StatsFrame" id="StatsFrame">
+      <h3>Stats</h3>
+      <div id="StatsList"></div>
+    </div>
   </div>
+
 </body>
 
 </html>

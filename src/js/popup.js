@@ -97,3 +97,49 @@ function removePopupLater(message, popup) {
 }
 
 window.showPopup = showPopup;
+
+function animateValue(element, start, end, duration = 200) {
+    let startTime = null;
+
+    function update(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+
+        const value = Math.floor(start + (end - start) * progress);
+        element.textContent = value;
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+
+    requestAnimationFrame(update);
+}
+function spawnFlyingIcon(x, y, targetElement, iconSrc) {
+    const icon = document.createElement("img");
+    icon.src = iconSrc;
+
+    icon.style.position = "fixed";
+    icon.style.left = x + "px";
+    icon.style.top = y + "px";
+    icon.style.width = "24px";
+    icon.style.pointerEvents = "none";
+    icon.style.zIndex = 999;
+
+    document.body.appendChild(icon);
+
+    const targetRect = targetElement.getBoundingClientRect();
+
+    const dx = targetRect.left + targetRect.width / 2 - x;
+    const dy = targetRect.top + targetRect.height / 2 - y;
+
+    icon.animate([
+        { transform: "translate(0,0) scale(1)", opacity: 1 },
+        { transform: `translate(${dx}px, ${dy}px) scale(0.5)`, opacity: 0.3 }
+    ], {
+        duration: 500,
+        easing: "ease-in-out"
+    });
+
+    setTimeout(() => icon.remove(), 500);
+}
