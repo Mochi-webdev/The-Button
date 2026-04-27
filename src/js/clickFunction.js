@@ -37,3 +37,8 @@ UpgradeButton.addEventListener("click", function() {
         UpgradeFrame.style.display = "none";
     }
 });
+var CloseUpgradeFrameButton = document.getElementById("CloseUpgradeFrame");
+CloseUpgradeFrameButton.addEventListener("click", function() {
+    var UpgradeFrame = document.getElementById("UpgradeFrame");
+    UpgradeFrame.style.display = "none";
+});
