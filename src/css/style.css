@@ -172,16 +172,31 @@ html, body {
     display: grid;
 }
 .titleHead {
+    position: fixed;
+    top: 0;
+    left: 0;
+
     text-align: center;
     width: 100%;
-    margin-bottom: 20px;
+    display: block;
+
+    margin: 0; 
+    padding: 15px 0;
+
     font-family: Arial, sans-serif;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #111;
+
+    background-color: white; 
+    z-index: 1000;
 }
 .UpgradeItem {
     display: flex;
+    height: 100%;
+    width: 40%;
+    margin: auto;
+
     align-items: center;
     gap: 16px;
     padding: 16px;
@@ -194,6 +209,19 @@ html, body {
     margin-bottom: 12px;
     transition: all 0.2s ease-in-out;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.CloseUpgradeFrame {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #111;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}.CloseUpgradeFrame:hover {
+    color: #f44336;
 }
 .UpgradeItem:hover {
     background: linear-gradient(180deg, #f8f9fa, #ffffff);

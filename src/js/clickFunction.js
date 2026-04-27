@@ -25,6 +25,7 @@ Button.addEventListener("click", function() {
 
     localStorage.setItem("clickIntervalGems", ClickIntervalGems);
 
+    showPopup(`You earned ${GemsBoost} gems!`, 'info');
     document.getElementById("ClickCount").textContent = Clicks;
 });
 var UpgradeButton = document.querySelector(".UpgradeButton");
