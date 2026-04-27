@@ -27,7 +27,8 @@ const upgrades = [
     buttonId: "BuyUpgrade1",
     costTextId: "UpgradeCostClickBoost",
     name: "Click Boost",
-    effectText: (lvl) => `Boost is now ${1 + lvl * 0.5}`
+    effectText: (lvl) => `Boost is now ${1 + lvl * 0.5}`,
+    amount: 1
   },
   {
     id: "Upgrade2",
@@ -37,8 +38,20 @@ const upgrades = [
     buttonId: "BuyUpgrade2",
     costTextId: "UpgradeCostAutoClicker",
     name: "Auto Clicker",
-    effectText: (lvl) => `Auto clicks: ${lvl}/sec`
-  }
+    effectText: (lvl) => `Auto clicks: ${lvl}/sec`,
+    amount: 1
+  },
+    {
+    id: "Upgrade3",
+    costBase: 500,
+    costScale: 1.24,
+    statKey: "Upgrade3",
+    buttonId: "BuyUpgrade3",
+    costTextId: "UpgradeCostAutoClicker2",
+    name: "Hired Clicker",
+    effectText: (lvl) => `Auto clicks: ${lvl}/sec`,
+    amount: 5
+  },
 ];
 
 updateStatsFrame();
@@ -76,7 +89,7 @@ upgrades.forEach(upg => {
       
 
       localStorage.setItem("clicks", clicks);
-      localStorage.setItem(upg.statKey, level + 1);
+      localStorage.setItem(upg.statKey, level + upg.amount);
 
       Clicks = clicks;
 

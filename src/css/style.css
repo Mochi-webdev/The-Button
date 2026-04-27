@@ -209,6 +209,7 @@ body {
     padding-right: 6px;
     overflow-y: auto;
     overflow-x: visible;
+    overflow: visible;
 }
 
 .UpgradeList::-webkit-scrollbar {
@@ -275,6 +276,8 @@ body {
     padding: 10px 12px;
     border-radius: 10px;
 
+
+
     font-size: 13px;
     width: max-content;
     max-width: 220px;
@@ -330,7 +333,8 @@ body {
 }
 
 .BuyUpgrade1,
-.BuyUpgrade2 {
+.BuyUpgrade2,
+.BuyUpgrade3 {
     margin-left: auto;
 
     padding: 8px 14px;
@@ -430,17 +434,129 @@ body {
     color: white;
 }
 
+.ShopFrame {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    width: min(95vw, 720px);
+    max-height: 88vh;
+
+    padding: 24px;
+
+    border-radius: 24px;
+
+    background: linear-gradient(145deg, #ffffff, #f3f5f9);
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+
+    box-shadow:
+        0 40px 120px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    display: flex;
+    flex-direction: column;
+
+    opacity: 0;
+      transition:
+        transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1),
+        opacity 0.25s ease;
 
 
+    transform: translate(-50%, -55%) scale(0.92);
+
+    z-index: 920;
+    pointer-events: none;
+    overflow: visible;
+}
 
 
+.ShopFrame.open {
+    display: flex;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
 
+.ShopList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    padding-top: 12px;
+    overflow-y: auto;
+}
 
+.CloseShopFrame {
+    position: absolute;
+    top: 8px;
+    right: 12px;
 
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
 
+    width: 32px;
+    height: 32px;
 
+    border-radius: 50%;
 
+    font-size: 20px;
+    font-weight: bold;
 
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.15s ease;
+}
+
+.CloseShopFrame:hover {
+    background: #f44336;
+    color: white;
+}
+
+.ShopSlot {
+    display: flex;
+    flex-direction: column;
+    grid: row;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px;
+
+    background: linear-gradient(180deg, #ffffff, #f3f4f6);
+    border-radius: 12px;
+    width: 25%;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    font-size: clamp(14px, 2vw, 16px);
+    font-weight: 600;
+
+    transition: all 0.18s ease;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.BuyShopItem {
+    padding: 8px 14px;
+
+    background: linear-gradient(180deg, #4CAF50, #43a047);
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
 
 
 

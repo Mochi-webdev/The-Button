@@ -7,6 +7,21 @@ var Clicks = parseInt(localStorage.getItem("clicks")) || 0;
 var Upgrade1 = parseInt(localStorage.getItem("Upgrade1")) || 0;
 var AutoClicker = parseInt(localStorage.getItem("Upgrade2")) || 0;
 
+var CurrentSkin = localStorage.getItem("CurrentSkin") || "Default";
+
+function getCurrentSkin() {
+    return localStorage.getItem("CurrentSkin") || "Default";
+}
+
+function setCurrentSkin(skin) {
+    localStorage.setItem("CurrentSkin", skin);
+    document.documentElement.style.setProperty('--button-skin', `url('assets/skins/${skin}.png')`);
+}
+
+function loadSkin() {
+    const skin = getCurrentSkin();
+    setCurrentSkin(skin);
+}
 
 function getGemsBoost() {
     return 1 + (parseInt(localStorage.getItem("Upgrade1")) || 0) * 0.5;
@@ -109,6 +124,35 @@ var UpgradeButton = document.querySelector(".UpgradeButton");
 var UpgradeFrame = document.getElementById("UpgradeFrame");
 var CloseUpgradeFrameButton = document.getElementById("CloseUpgradeFrame");
 
+var ShopButton = document.querySelector(".ShopButton");
+var ShopFrame = document.querySelector(".ShopFrame");
+var CloseShopFrameButton = document.getElementById("CloseShopFrame");
+
+if (ShopButton && ShopFrame) {
+    ShopButton.addEventListener("click", function () {
+        ShopFrame.style.display = "flex";
+        ShopFrame.style.pointerEvents = "auto";
+        requestAnimationFrame(() => {
+            ShopFrame.classList.add("open");
+        });
+    });
+
+};
+
+
+if (CloseShopFrameButton && ShopFrame) {
+    CloseShopFrameButton.addEventListener("click", function () {
+        ShopFrame.classList.remove("open");
+
+        setTimeout(() => {
+            ShopFrame.style.display = "none";
+        }, 250);
+    });
+}
+
+
+
+
 if (UpgradeButton && UpgradeFrame) {
     UpgradeButton.addEventListener("click", function () {
         UpgradeFrame.style.display = "flex";
@@ -156,14 +200,15 @@ tabs.forEach(tab => {
 
 
 setInterval(() => {
-    const autoClicks = parseInt(localStorage.getItem("Upgrade2")) || 0;
+    const auto1 = parseInt(localStorage.getItem("Upgrade2")) || 0;
+    const auto2 = parseInt(localStorage.getItem("Upgrade3")) || 0;
+
+    const autoClicks = auto1 + (auto2 * 5);
 
     if (autoClicks > 0) {
         Clicks += autoClicks;
 
         localStorage.setItem("clicks", Clicks);
-        if (clickEl) clickEl.textContent = Clicks;
-
-        updateUpgradeStates();
+        document.getElementById("ClickCount").textContent = Clicks;
     }
 }, 1000);
