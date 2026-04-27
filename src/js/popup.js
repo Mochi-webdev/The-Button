@@ -1,4 +1,4 @@
-function showPopup(message, type = 'info') {
+ function showPopup(message, type = 'info') {
     
     const existingPopup = document.querySelector('.popup');
     if (existingPopup) {
