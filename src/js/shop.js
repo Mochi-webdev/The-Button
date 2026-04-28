@@ -1,83 +1,117 @@
 const shopItems = [
   {
     id: "skin_orange",
-    name: "Orange Button Skin",
+    name: "Orange Button",
     img: "assets/buttons/ButtonCommon2.png",
-    desc: "Get an Orange Button Skin!",
+    desc: "Clean orange look",
     cost: 10000,
+    rarity: "common",
     type: "skin",
     value: "ButtonCommon2.png"
   },
   {
     id: "skin_blue",
-    name: "Blue Button Skin",
+    name: "Blue Button",
     img: "assets/buttons/ButtonCommon3.png",
-    desc: "Get a Blue Button Skin!",
+    desc: "Cool blue vibe",
     cost: 10000,
+    rarity: "rare",
     type: "skin",
     value: "ButtonCommon3.png"
   },
   {
     id: "skin_green",
-    name: "Green Button Skin",
+    name: "Green Button",
     img: "assets/buttons/ButtonCommon4.png",
-    desc: "Get a Green Button Skin!",
+    desc: "Nature energy",
     cost: 10000,
+    rarity: "epic",
     type: "skin",
     value: "ButtonCommon4.png"
   }
 ];
+
 function renderShop() {
-  const container = document.getElementById("ShopList");
+  const container = document.querySelector(".ShopList");
+  if (!container) return;
+
   container.innerHTML = "";
 
   shopItems.forEach(item => {
     const owned = localStorage.getItem(item.id) === "true";
+    const equipped = localStorage.getItem("CurrentSkin") === item.value;
 
     const div = document.createElement("div");
-    div.className = "ShopSlot";
+    div.className = `ShopSlot ${item.rarity}`;
 
     div.innerHTML = `
       <span class="ShopItemName">${item.name}</span>
       <img src="${item.img}" class="ShopItemIcon">
       <span class="ShopItemDesc">${item.desc}</span>
       <span class="ShopItemCost">Cost: ${item.cost} Clicks</span>
-      <button ${owned ? "disabled" : ""}>
-        ${owned ? "Owned" : "Buy"}
+
+      <button>
+        ${
+          !owned ? "Buy" :
+          equipped ? "Equipped" :
+          "Equip"
+        }
       </button>
     `;
 
     const button = div.querySelector("button");
 
-    button.addEventListener("click", () => buyItem(item));
+    button.addEventListener("click", () => {
+      if (!owned) {
+        buyItem(item);
+      } else {
+        equipItem(item);
+      }
+    });
 
     container.appendChild(div);
   });
 }
+
+
+
 function buyItem(item) {
   let clicks = parseInt(localStorage.getItem("clicks")) || 0;
 
-  if (clicks >= item.cost) {
-    clicks -= item.cost;
+  if (clicks < item.cost) {
+    showPopup("Not enough clicks!", "error");
+    return;
+  }
 
-    localStorage.setItem("clicks", clicks);
-    localStorage.setItem(item.id, "true");
+  clicks -= item.cost;
 
-    document.getElementById("ClickCount").textContent = clicks;
+  localStorage.setItem("clicks", clicks);
+  localStorage.setItem(item.id, "true");
 
-   
-    if (item.type === "skin") {
-      localStorage.setItem("activeSkin", item.value);
-      applySkin(item.value);
+  document.getElementById("ClickCount").textContent = clicks;
+
+  showPopup(`${item.name} purchased!`, "success");
+
+  renderShop();
+}
+
+
+
+function equipItem(item) {
+  if (item.type === "skin") {
+    localStorage.setItem("CurrentSkin", item.value);
+
+    const button = document.querySelector(".ButtonImage");
+    if (button) {
+      button.src = `assets/buttons/${item.value}`;
     }
 
-    showPopup(`${item.name} purchased!`, "success");
+    showPopup(`${item.name} equipped!`, "success");
 
     renderShop();
-  } else {
-    showPopup(`Not enough clicks!`, "error");
   }
 }
-document.addEventListener("DOMContentLoaded", () => {
-    renderShop();
-});
+
+
+
+document.addEventListener("DOMContentLoaded", renderShop);

@@ -542,6 +542,19 @@ body {
 
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
+.ShopSlot.common {
+  border: 1px solid #aaa;
+}
+
+.ShopSlot.rare {
+  border: 1px solid #3b82f6;
+  box-shadow: 0 0 12px rgba(59,130,246,0.5);
+}
+
+.ShopSlot.epic {
+  border: 1px solid #a855f7;
+  box-shadow: 0 0 16px rgba(168,85,247,0.6);
+}
 .BuyShopItem {
     padding: 8px 14px;
 
