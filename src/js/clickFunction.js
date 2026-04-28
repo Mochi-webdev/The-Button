@@ -108,6 +108,7 @@ function setupFrame(openBtn, frame, closeBtn) {
 
     openBtn.addEventListener("click", () => {
         frame.style.display = "flex";
+        frame.style.pointerEvents = "auto";
         requestAnimationFrame(() => frame.classList.add("open"));
     });
 
@@ -116,6 +117,7 @@ function setupFrame(openBtn, frame, closeBtn) {
             frame.classList.remove("open");
             setTimeout(() => {
                 frame.style.display = "none";
+                frame.style.pointerEvents = "none";
             }, 250);
         });
     }
