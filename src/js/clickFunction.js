@@ -1,6 +1,7 @@
 var Button = document.querySelector(".ButtonImage");
 
 
+
 var Gems = parseInt(localStorage.getItem("gems")) || 0;
 var ClickIntervalGems = parseInt(localStorage.getItem("clickIntervalGems")) || 0;
 var Clicks = parseInt(localStorage.getItem("clicks")) || 0;
