@@ -44,3 +44,32 @@ const skins = [
     buy_label: "Get an Purple Button Skin!"
   },
 ];
+
+const shopList = document.querySelector('.ShopList');
+
+// Funktion zum Erstellen der Shop-Elemente
+function renderShop() {
+  // Falls die Liste vorher geleert werden soll (verhindert Duplikate beim Neu-Aufruf)
+  shopList.innerHTML = "";
+
+  skins.forEach(skin => {
+    // Erstelle das Haupt-Container-Div für den Slot
+    const shopSlot = document.createElement('div');
+    shopSlot.classList.add('ShopSlot');
+
+    // Setze das HTML-Gerüst zusammen (Template String)
+    shopSlot.innerHTML = `
+      <span class="ShopItemName" id="${skin.id}">${skin.tite}</span>
+      <img src="assets/buttons/${skin.btn_up}" alt="${skin.tite}" class="ShopItemIcon">
+      <span class="ShopItemDesc">${skin.buy_label}</span>
+      <span class="ShopItemCost">Cost: ${skin.cost_label} ${skin.currency}</span>
+      <button class="BuyShopItem" data-id="${skin.id}" data-cost="${skin.cost}">Buy</button>
+    `;
+
+    // Füge den Slot der Liste hinzu
+    shopList.appendChild(shopSlot);
+  });
+}
+
+// Shop initial aufrufen
+renderShop();
