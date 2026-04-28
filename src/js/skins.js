@@ -1,8 +1,8 @@
 const skins = [
   {
     id: "Orange_Btn", 
-    btn_down: "ButtonCommon1-Down.png",
-    btn_up: "ButtonCommon1.png",
+    btn_down: "ButtonCommon2-Down.png",
+    btn_up: "ButtonCommon2.png",
     color: "orange",
     cost: "10000",
     cost_label: "10k",
@@ -12,8 +12,8 @@ const skins = [
   },
   {
     id: "Blue_Btn", 
-    btn_down: "ButtonCommon2-Down.png",
-    btn_up: "ButtonCommon2.png",
+    btn_down: "ButtonCommon3-Down.png",
+    btn_up: "ButtonCommon3.png",
     color: "blue",
     cost: "10000",
     cost_label: "10k",
@@ -23,8 +23,8 @@ const skins = [
   },
   {
     id: "Green_Btn", 
-    btn_down: "ButtonCommon3-Down.png",
-    btn_up: "ButtonCommon3.png",
+    btn_down: "ButtonCommon4-Down.png",
+    btn_up: "ButtonCommon4.png",
     color: "green",
     cost: "10000",
     cost_label: "10k",
@@ -34,8 +34,8 @@ const skins = [
   },
   {
     id: "Purple_Btn", 
-    btn_down: "ButtonCommon4-Down.png",
-    btn_up: "ButtonCommon4.png",
+    btn_down: "ButtonCommon5-Down.png",
+    btn_up: "ButtonCommon5.png",
     color: "purple",
     cost: "10000",
     cost_label: "10k",
