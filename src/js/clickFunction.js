@@ -16,7 +16,11 @@ function getCurrentSkin() {
 
 function setCurrentSkin(skin) {
     localStorage.setItem("CurrentSkin", skin);
-    document.documentElement.style.setProperty('--button-skin', `url('assets/skins/${skin}.png')`);
+
+    const button = document.querySelector(".ButtonImage");
+    if (button) {
+        button.src = `assets/skins/${skin}.png`;
+    }
 }
 
 function loadSkin() {
@@ -28,7 +32,7 @@ function getGemsBoost() {
     return 1 + (parseInt(localStorage.getItem("Upgrade1")) || 0) * 0.5;
 }
 
-
+loadSkin();
 const clickEl = document.getElementById("ClickCount");
 const gemEl = document.getElementById("GemCount");
 

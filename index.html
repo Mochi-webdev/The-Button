@@ -9,6 +9,7 @@
   <script src="src/js/clickFunction.js" defer></script>
   <script src="src/js/popup.js" defer></script>
   <script src="src/js/upgrades.js" defer></script>
+  <script src="src/js/shop.js" defer></script>
 </head>
 
 <body>
@@ -91,35 +92,7 @@
     <div class="ShopFrame">
       <button class="CloseShopFrame" id="CloseShopFrame">&times;</button>
       <h2 class="titleHead">Shop</h2>
-      <div class="ShopList">
-        <div class="ShopSlot">
-          <span class="ShopItemName">Orange Button Skin</span>
-          <img src="assets/buttons/ButtonCommon2.png" alt="Orange Button Skin" class="ShopItemIcon">
-          <span class="ShopItemDesc">Get an Orange Button Skin!</span>
-          <span class="ShopItemCost">Cost: 10k Clicks</span>
-          <button class="BuyShopItem" data-item="Skin">Buy</button>
-        </div>
-        <div class="ShopSlot">
-          <span class="ShopItemName">Blue Button Skin</span>
-          <img src="assets/buttons/ButtonCommon3.png" alt="Blue Button Skin" class="ShopItemIcon">
-          <span class="ShopItemDesc">Get a Blue Button Skin !</span>
-          <span class="ShopItemCost">Cost: 10k Clicks</span>
-          <button class="BuyShopItem" data-item="Skin">Buy</button>
-        </div>
-        <div class="ShopSlot">
-          <span class="ShopItemName">Green Button Skin</span>
-          <img src="assets/buttons/ButtonCommon4.png" alt="Green Button Skin" class="ShopItemIcon">
-          <span class="ShopItemDesc">Get a Green Button Skin !</span>
-          <span class="ShopItemCost">Cost: 10k Clicks</span>
-          <button class="BuyShopItem" data-item="Skin">Buy</button>
-        </div>
-         <div class="ShopSlot">
-          <span class="ShopItemName">Purple Button Skin</span>
-          <img src="assets/buttons/ButtonCommon5.png" alt="Purple Button Skin" class="ShopItemIcon">
-          <span class="ShopItemDesc">Get a Purple Button Skin !</span>
-          <span class="ShopItemCost">Cost: 10k Clicks</span>
-          <button class="BuyShopItem" data-item="Skin">Buy</button>
-        </div>
+      <div class="ShopList" id="shopList">
       </div>
     </div>
     <div class="StatsFrame" id="StatsFrame">
