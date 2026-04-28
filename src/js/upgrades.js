@@ -1,4 +1,3 @@
-var Clicks = parseInt(localStorage.getItem("clicks")) || 0;
 
 window.updateStatsFrame = function () {
     const container = document.getElementById("StatsList");
@@ -91,9 +90,7 @@ upgrades.forEach(upg => {
       localStorage.setItem("clicks", clicks);
       localStorage.setItem(upg.statKey, level + upg.amount);
 
-      Clicks = clicks;
-
-      document.getElementById("ClickCount").textContent = Clicks;
+      document.getElementById("ClickCount").textContent = clicks;
 
       showPopup(
         `${upg.name} upgraded! ${upg.effectText(level + 1)}`,

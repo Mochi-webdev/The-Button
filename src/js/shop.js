@@ -15,7 +15,7 @@ const shopItems = [
     img: "assets/buttons/ButtonCommon3.png",
     desc: "Cool blue vibe",
     cost: 10000,
-    rarity: "rare",
+    rarity: "common",
     type: "skin",
     value: "ButtonCommon3.png"
   },
@@ -25,7 +25,7 @@ const shopItems = [
     img: "assets/buttons/ButtonCommon4.png",
     desc: "Nature energy",
     cost: 10000,
-    rarity: "epic",
+    rarity: "common",
     type: "skin",
     value: "ButtonCommon4.png"
   }
