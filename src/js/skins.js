@@ -19,7 +19,7 @@ const skins = [
     cost_label: "10k",
     currency: "Clicks",
     tite: "Blue Button Skin",
-    buy_label: "Get an Blue Button Skin!"
+    buy_label: "Get a Blue Button Skin!"
   },
   {
     id: "Green_Btn", 
@@ -30,7 +30,7 @@ const skins = [
     cost_label: "10k",
     currency: "Clicks",
     tite: "Green Button Skin",
-    buy_label: "Get an Green Button Skin!"
+    buy_label: "Get a Green Button Skin!"
   },
   {
     id: "Purple_Btn", 
@@ -41,7 +41,7 @@ const skins = [
     cost_label: "10k",
     currency: "Clicks",
     tite: "Purple Button Skin",
-    buy_label: "Get an Purple Button Skin!"
+    buy_label: "Get a Purple Button Skin!"
   },
 ];
 
@@ -72,4 +72,6 @@ function renderShop() {
 }
 
 // Shop initial aufrufen
-renderShop();
+document.addEventListener("DOMContentLoaded", () => {
+  renderShop();
+});
