@@ -112,7 +112,8 @@ body {
 }
 
 .UpgradeButton,
-.ShopButton {
+.ShopButton,
+.MerchantButton {
     width: clamp(60px, 10vw, 90px);
     height: clamp(60px, 10vw, 90px);
 
@@ -132,13 +133,15 @@ body {
 }
 
 .UpgradeButton:hover,
-.ShopButton:hover {
+.ShopButton:hover,
+.MerchantButton:hover {
     transform: scale(1.08);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
 .UpgradeButton:active,
-.ShopButton:active {
+.ShopButton:active,
+.MerchantButton:active {
     transform: scale(0.95);
 }
 
