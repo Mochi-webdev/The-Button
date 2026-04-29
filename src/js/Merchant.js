@@ -121,7 +121,7 @@ function startSlotMachine(item, isWin) {
   resultText.innerText = "SPINNING...";
   resultText.style.color = "white";
 
-  const placeholderIcon = "assets/buttons/DefaultButton.png";
+  const placeholderIcon = "assets/buttons/ButtonCommon1.png";
   const targetIcon = item.img;
 
   reels.forEach((reel, index) => {
