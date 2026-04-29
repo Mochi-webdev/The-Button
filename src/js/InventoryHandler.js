@@ -58,7 +58,7 @@ function renderInventory() {
       <span class="ShopItemName">${item.name}</span>
       <img src="${item.img}" class="ShopItemIcon">
 
-      <button ${equipped ? "disabled" : ""}>
+      <button class="EquipButton" ${equipped ? "disabled" : ""}>
         ${equipped ? "Equipped" : "Equip"}
       </button>
     `;
