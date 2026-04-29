@@ -152,3 +152,8 @@ setupFrame(
     document.querySelector(".MerchantFrame"),
     document.getElementById("CloseMerchantFrame")
 );
+setupFrame(
+    document.querySelector(".InventoryButton"),
+    document.querySelector(".InventoryFrame"),
+    document.getElementById("CloseInventoryFrame")
+);

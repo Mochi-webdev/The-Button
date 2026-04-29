@@ -154,6 +154,11 @@ body {
     height: 80%;
     object-fit: contain;
 }
+.InventoryImage {
+    width: 25%;
+    height: 25%;
+    object-fit: contain;
+}
 
 .UpgradeFrame, .InventoryFrame {
     display: none;
