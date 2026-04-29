@@ -174,4 +174,5 @@ function equipItem(item) {
 
 
 
+
 document.addEventListener("DOMContentLoaded", renderShop);

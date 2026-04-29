@@ -1,20 +1,16 @@
-const MERCHANT_REFRESH_TIME = 5 * 60 * 1000; 
+const MERCHANT_REFRESH_TIME = 5 * 60 * 1000;
 
 const merchantPool = [
-  
   {
     id: "skin_Gold",
     type: "skin",
     name: "Golden Button",
     img: "assets/buttons/GoldButton.png",
     cost: 25000,
-    chance: 0.1, 
+    chance: 0.1,
     rarity: "epic",
     value: "GoldButton.png"
   },
-  
-
-
   {
     id: "boost_click",
     type: "boost",
@@ -100,7 +96,7 @@ function renderMerchant() {
           : item.desc}
       </span>
       <span class="ShopItemCost">Cost: ${item.cost} Clicks</span>
-      <button>Buy</button>
+      <button class="BuyButtonMerchant">Buy</button>
     `;
 
     const button = div.querySelector("button");
@@ -108,6 +104,67 @@ function renderMerchant() {
 
     container.appendChild(div);
   });
+}
+
+function startSlotMachine(item, isWin) {
+  const overlay = document.getElementById("slot-machine-overlay");
+  const reels = [
+    document.getElementById("reel1"),
+    document.getElementById("reel2"),
+    document.getElementById("reel3")
+  ];
+  const resultText = document.getElementById("slot-result-text");
+  
+  if (!overlay || !reels[0]) return;
+
+  overlay.classList.remove("hidden");
+  resultText.innerText = "SPINNING...";
+  resultText.style.color = "white";
+
+  const placeholderIcon = "assets/buttons/DefaultButton.png";
+  const targetIcon = item.img;
+
+  reels.forEach((reel, index) => {
+    reel.innerHTML = "";
+    for (let i = 0; i < 30; i++) {
+      const img = document.createElement("img");
+      img.src = (Math.random() > 0.5) ? placeholderIcon : item.img; 
+      img.className = "slot-icon";
+      reel.appendChild(img);
+    }
+    
+    const finalImg = document.createElement("img");
+    if (isWin) {
+      finalImg.src = targetIcon;
+    } else {
+      finalImg.src = (index === 2) ? placeholderIcon : targetIcon;
+    }
+    finalImg.className = "slot-icon";
+    reel.appendChild(finalImg);
+
+    reel.style.transition = "none";
+    reel.style.transform = "translateY(0)";
+    
+    setTimeout(() => {
+      reel.style.transition = `transform ${2 + index * 0.5}s cubic-bezier(0.1, 0, 0.1, 1)`;
+      reel.style.transform = "translateY(-3600px)"; 
+    }, 50);
+  });
+
+  setTimeout(() => {
+    if (isWin) {
+      resultText.innerText = "JACKPOT!";
+      resultText.style.color = "#ffd700";
+      showPopup(`Unlocked ${item.name}!`, "success");
+    } else {
+      resultText.innerText = "SO CLOSE!";
+      showPopup("Failed... try again!", "error");
+    }
+    
+    setTimeout(() => {
+      overlay.classList.add("hidden");
+    }, 2500);
+  }, 3500);
 }
 
 function buyMerchantItem(item) {
@@ -120,18 +177,18 @@ function buyMerchantItem(item) {
 
   clicks -= item.cost;
   localStorage.setItem("clicks", clicks);
-  document.getElementById("ClickCount").textContent = clicks;
+  const clickDisplay = document.getElementById("ClickCount");
+  if (clickDisplay) clickDisplay.textContent = clicks;
 
   if (item.type === "skin") {
     const roll = Math.random();
+    const isWin = roll <= item.chance;
 
-    if (roll <= item.chance) {
+    if (isWin) {
       localStorage.setItem(item.id, "true");
-
-      showPopup(`Unlocked ${item.name}!`, "success");
-    } else {
-      showPopup("Failed... try again!", "error");
     }
+    
+    startSlotMachine(item, isWin);
   } else {
     item.effect();
     showPopup(`${item.name} used!`, "success");
@@ -141,6 +198,5 @@ function buyMerchantItem(item) {
 document.addEventListener("DOMContentLoaded", () => {
   checkMerchantRefresh();
   renderMerchant();
-
   setInterval(checkMerchantRefresh, 10000); 
 });
