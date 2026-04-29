@@ -147,3 +147,8 @@ setupFrame(
     document.querySelector(".ShopFrame"),
     document.getElementById("CloseShopFrame")
 );
+setupFrame(
+    document.querySelector(".MerchantButton"),
+    document.querySelector(".MerchantFrame"),
+    document.getElementById("CloseMerchantFrame")
+);

@@ -63,7 +63,7 @@ const shopItems = [
     id: "skin_iceblue",
     name: "Ice Blue Button",
     img: "assets/buttons/IceButtonBlue.png",
-    desc: "Cool and refreshing",
+    desc: "Cool and refreshing, I love a cold Ice",
     cost: 50000,
     rarity: "rare",
     type: "skin",

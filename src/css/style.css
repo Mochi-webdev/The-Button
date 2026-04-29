@@ -437,7 +437,7 @@ body {
     color: white;
 }
 
-.ShopFrame {
+.ShopFrame, .MerchantFrame {
     display: none;
     position: fixed;
     top: 50%;
@@ -475,13 +475,13 @@ body {
 }
 
 
-.ShopFrame.open {
+.ShopFrame.open, .MerchantFrame.open {
     display: flex;
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
 }
 
-.ShopList {
+.ShopList, .MerchantList {
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
@@ -490,7 +490,7 @@ body {
     overflow-y: auto;
 }
 
-.CloseShopFrame {
+.CloseShopFrame, .CloseMerchantFrame {
     position: absolute;
     top: 8px;
     right: 12px;
@@ -515,7 +515,7 @@ body {
     transition: all 0.15s ease;
 }
 
-.CloseShopFrame:hover {
+.CloseShopFrame:hover, .CloseMerchantFrame:hover {
     background: #f44336;
     color: white;
 }
