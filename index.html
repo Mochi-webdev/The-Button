@@ -38,6 +38,7 @@
       <button class="ShopButton"><img class="UpgradeLogo" src="assets/ui/ShoppingCart.png"
           alt="Shopping Cart Icon"></button>
       <button class="MerchantButton"><img class="UpgradeLogo" src="assets/ui/Group 9.png" alt="Merchant Icon"></button>
+      <button class="InventoryButton"><img class="UpgradeLogo" src="assets/buttons/ButtonCommon1.png" alt="Inventory Icon"></button>
     </div>
 
     <div class="UpgradeFrame" id="UpgradeFrame">
@@ -96,6 +97,21 @@
       <div class="ShopList" id="shopList">
       </div>
     </div>
+
+    <div class="InventoryFrame" id="InventoryFrame">
+      <button class="CloseInventoryFrame" id="CloseInventoryFrame">&times;</button>
+      <h2 class="titleHead">Inventory</h2>
+
+      <div class="InventoryTabs">">
+        <button class="InventoryTab active" data-category="all">All</button>
+        <button class="InventoryTab" data-category="Skins">Skins</button>
+      </div>
+      
+      <div id="InventoryList" class="ShopList"></div>
+    </div>
+
+
+
     <div class="MerchantFrame">
       <button class="CloseMerchantFrame" id="CloseMerchantFrame">&times;</button>
       <h2>Merchant</h2>

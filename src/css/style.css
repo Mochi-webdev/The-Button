@@ -113,7 +113,8 @@ body {
 
 .UpgradeButton,
 .ShopButton,
-.MerchantButton {
+.MerchantButton,
+.InventoryButton {
     width: clamp(60px, 10vw, 90px);
     height: clamp(60px, 10vw, 90px);
 
@@ -134,14 +135,17 @@ body {
 
 .UpgradeButton:hover,
 .ShopButton:hover,
-.MerchantButton:hover {
+.MerchantButton:hover,
+.InventoryButton:hover  {
     transform: scale(1.08);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
 .UpgradeButton:active,
 .ShopButton:active,
-.MerchantButton:active {
+.MerchantButton:active,
+.InventoryButton:active
+ {
     transform: scale(0.95);
 }
 
@@ -151,7 +155,7 @@ body {
     object-fit: contain;
 }
 
-.UpgradeFrame {
+.UpgradeFrame, .InventoryFrame {
     display: none;
     position: fixed;
     top: 50%;
@@ -189,7 +193,7 @@ body {
 }
 
 
-.UpgradeFrame.open {
+.UpgradeFrame.open, .InventoryFrame.open {
     display: flex;
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
@@ -201,7 +205,7 @@ body {
     margin-bottom: 14px;
 }
 
-.UpgradeList {
+.UpgradeList, .InventoryList {
     flex: 1;
     overflow-y: auto;
 
