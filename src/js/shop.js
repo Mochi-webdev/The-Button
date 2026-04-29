@@ -59,6 +59,36 @@ const shopItems = [
     type: "skin",
     value: "ButtonCommon7.png"
   },
+   { 
+    id: "skin_iceblue",
+    name: "Ice Blue Button",
+    img: "assets/buttons/IceButtonBlue.png",
+    desc: "Cool and refreshing",
+    cost: 50000,
+    rarity: "rare",
+    type: "skin",
+    value: "IceButtonBlue.png"
+  },
+   { 
+    id: "skin_iceorange",
+    name: "Ice Orange Button",
+    img: "assets/buttons/IceButtonOrange.png",
+    desc: "Cool and refreshing, also tastes like orange",
+    cost: 50000,
+    rarity: "rare",
+    type: "skin",
+    value: "IceButtonOrange.png"
+  },
+   { 
+    id: "skin_icegreen",
+    name: "Ice Green Button",
+    img: "assets/buttons/IceButtonGreen.png",
+    desc: "Cool and refreshing, tastes like green apple",
+    cost: 50000,
+    rarity: "rare",
+    type: "skin",
+    value: "IceButtonGreen.png"
+  },
 ];
 
 function renderShop() {
