@@ -14,6 +14,7 @@ const merchantPool = [
   {
     id: "boost_click",
     type: "boost",
+     img: "assets/ui/ClickCurrency.png",
     name: "Click Boost Pack",
     desc: "+50 clicks instantly",
     cost: 2000,
@@ -27,6 +28,7 @@ const merchantPool = [
   {
     id: "boost_gems",
     type: "boost",
+    img: "assets/ui/GemCurrency.png",
     name: "Gem Pack",
     desc: "+10 gems instantly",
     cost: 3000,
