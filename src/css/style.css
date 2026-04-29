@@ -542,6 +542,27 @@ body {
 
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
+
+.ShopButtonBuy{
+    margin-left: auto;
+
+    padding: 8px 14px;
+
+    background: linear-gradient(180deg, #4CAF50, #43a047);
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
 .ShopSlot.common {
   border: 1px solid #aaa;
 }

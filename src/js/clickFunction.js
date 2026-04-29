@@ -47,6 +47,7 @@ if (Button) {
         localStorage.setItem("clicks", clicks);
         if (clickEl) clickEl.textContent = clicks;
 
+        
         ClickIntervalGems++;
 
         let earnedGems = false;
@@ -86,6 +87,14 @@ if (Button) {
                 );
             }
         }
+        const originalSrc = Button.src;
+
+        Button.src = originalSrc.replace(".png", "-Down.png");
+
+        setTimeout(() => {
+            Button.src = originalSrc;
+        }, 100);
+
     });
 }
 

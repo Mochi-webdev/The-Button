@@ -28,7 +28,37 @@ const shopItems = [
     rarity: "common",
     type: "skin",
     value: "ButtonCommon4.png"
-  }
+  },
+   {
+    id: "skin_purple",
+    name: "Purple Button",
+    img: "assets/buttons/ButtonCommon5.png",
+    desc: "Mystical purple vibe",
+    cost: 10000,
+    rarity: "common",
+    type: "skin",
+    value: "ButtonCommon5.png"
+  },
+{ 
+    id: "skin_yellow",
+    name: "Yellow Button",
+    img: "assets/buttons/ButtonCommon6.png",
+    desc: "Bright and cheerful",
+    cost: 10000,
+    rarity: "common",
+    type: "skin",
+    value: "ButtonCommon6.png"
+  },
+  { 
+    id: "skin_pink",
+    name: "Pink Button",
+    img: "assets/buttons/ButtonCommon7.png",
+    desc: "Cute and playful",
+    cost: 10000,
+    rarity: "common",
+    type: "skin",
+    value: "ButtonCommon7.png"
+  },
 ];
 
 function renderShop() {
@@ -50,7 +80,7 @@ function renderShop() {
       <span class="ShopItemDesc">${item.desc}</span>
       <span class="ShopItemCost">Cost: ${item.cost} Clicks</span>
 
-      <button>
+      <button class="ShopButtonBuy">
         ${
           !owned ? "Buy" :
           equipped ? "Equipped" :
