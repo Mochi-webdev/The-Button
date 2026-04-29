@@ -14,7 +14,7 @@ const merchantPool = [
   {
     id: "boost_click",
     type: "boost",
-     img: "assets/ui/ClickCurrency.png",
+     img: "assets/ui/ButtonCurrency.png",
     name: "Click Boost Pack",
     desc: "+50 clicks instantly",
     cost: 2000,
