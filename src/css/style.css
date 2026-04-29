@@ -155,8 +155,8 @@ body {
     object-fit: contain;
 }
 .InventoryImage {
-    width: 25%;
-    height: 25%;
+    width: 15%;
+    height: 15%;
     object-fit: contain;
 }
 
@@ -389,7 +389,7 @@ body {
     cursor: not-allowed;
 }
 
-.CloseUpgradeFrame {
+.CloseUpgradeFrame, .CloseInventoryFrame {
     position: absolute;
     top: 8px;
     right: 12px;
@@ -414,19 +414,19 @@ body {
     transition: all 0.15s ease;
 }
 
-.CloseUpgradeFrame:hover {
+.CloseUpgradeFrame:hover, .CloseInventoryFrame:hover {
     background: #f44336;
     color: white;
 }
 
-.ShopTabs {
+.ShopTabs, .InventoryTabs {
     display: flex;
     gap: 10px;
     margin-bottom: 12px;
     justify-content: center;
 }
 
-.ShopTab {
+.ShopTab, .InventoryTab {
     padding: 8px 14px;
     border-radius: 999px;
 
@@ -441,7 +441,7 @@ body {
     transition: 0.15s;
 }
 
-.ShopTab.active {
+.ShopTab.active, .InventoryTab.active {
     background: #111;
     color: white;
 }
