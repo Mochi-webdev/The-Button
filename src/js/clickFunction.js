@@ -39,11 +39,13 @@ function getGemsBoost() {
 
 if (Button) {
     Button.addEventListener("click", () => {
-        const clickPower = getClickPower();
-        Clicks += clickPower;
+        let clicks = parseInt(localStorage.getItem("clicks")) || 0;
 
-        localStorage.setItem("clicks", Clicks);
-        if (clickEl) clickEl.textContent = Clicks;
+        const clickPower = getClickPower();
+        clicks += clickPower;
+
+        localStorage.setItem("clicks", clicks);
+        if (clickEl) clickEl.textContent = clicks;
 
         ClickIntervalGems++;
 
@@ -53,8 +55,8 @@ if (Button) {
             ClickIntervalGems = 0;
 
             const boost = getGemsBoost();
+            let Gems = parseInt(localStorage.getItem("gems")) || 0;
             Gems += boost;
-
             localStorage.setItem("gems", Gems);
 
             if (gemEl) gemEl.textContent = Gems;
@@ -95,10 +97,12 @@ setInterval(() => {
     const autoClicks = auto1 + (auto2 * 5);
 
     if (autoClicks > 0) {
-        Clicks += autoClicks;
+        let clicks = parseInt(localStorage.getItem("clicks")) || 0;
 
-        localStorage.setItem("clicks", Clicks);
-        if (clickEl) clickEl.textContent = Clicks;
+        clicks += autoClicks;
+
+        localStorage.setItem("clicks", clicks);
+        if (clickEl) clickEl.textContent = clicks;
     }
 }, 1000);
 
