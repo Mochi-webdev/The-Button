@@ -16,7 +16,13 @@ function setCurrentSkin(skin) {
         Button.src = `assets/buttons/${skin}`;
     }
 }
+function getSkinBonus() {
+    const current = localStorage.getItem("CurrentSkin");
 
+    const skin = shopItems.find(item => item.value === current);
+
+    return skin?.clickBonus || 0;
+}
 function loadSkin() {
     setCurrentSkin(getCurrentSkin());
 }
@@ -30,7 +36,11 @@ if (clickEl) clickEl.textContent = Clicks;
 if (gemEl) gemEl.textContent = Gems;
 
 function getClickPower() {
-    return 1 + (parseInt(localStorage.getItem("Upgrade1")) || 0);
+    const base = 1 + (parseInt(localStorage.getItem("Upgrade1")) || 0);
+
+    const skinBonus = getSkinBonus();
+
+    return Math.floor(base * (1 + skinBonus));
 }
 
 function getGemsBoost() {

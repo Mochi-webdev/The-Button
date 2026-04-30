@@ -1,77 +1,14 @@
 const MERCHANT_REFRESH_TIME = 5 * 60 * 1000;
 
-const merchantPool = [
-  {
-    id: "skin_Gold",
-    type: "skin",
-    name: "Golden Button",
-    img: "assets/buttons/GoldButton.png",
-    cost: 25000,
-    chance: 0.1,
-    rarity: "epic",
-    value: "GoldButton.png"
-  },
-  {
-    id: "skin_Silver",
-    type: "skin",
-    name: "Silver Button",
-    img: "assets/buttons/SilverButton.png",
-    cost: 20000,
-    chance: 0.4,
-    rarity: "rare",
-    value: "SilverButton.png"
-  },
-  {
-    id: "skin_Bronze",
-    type: "skin",
-    name: "Bronze Button",
-    img: "assets/buttons/BronzeButton.png",
-    cost: 10000,
-    chance: 0.5,
-    rarity: "common",
-    value: "BronzeButton.png"
-  },
-  {
-    id: "boost_click",
-    type: "boost",
-    img: "assets/ui/ButtonCurrency.png",
-    name: "Click Boost Pack",
-    desc: "+50 clicks instantly",
-    cost: 2000,
-    rarity: "common",
-    effect: () => {
-      let clicks = parseInt(localStorage.getItem("clicks")) || 0;
-      clicks += 50;
-      localStorage.setItem("clicks", clicks);
-    }
-  },
-  {
-    id: "boost_gems",
-    type: "boost",
-    img: "assets/ui/GemCurrency.png",
-    name: "Gem Pack",
-    desc: "+10 gems instantly",
-    cost: 3000,
-    rarity: "rare",
-    effect: () => {
-      let gems = parseInt(localStorage.getItem("gems")) || 0;
-      gems += 10;
-      localStorage.setItem("gems", gems);
-    }
-  }
-];
-
-function getMerchantItems() {
-  const saved = localStorage.getItem("merchantItems");
-  if (saved) return JSON.parse(saved);
-
-  refreshMerchant();
-  return JSON.parse(localStorage.getItem("merchantItems"));
+function getMerchantPool() {
+  return ITEMS.filter(i => i.inMerchant);
 }
 
 function refreshMerchant() {
-  const skins = merchantPool.filter(i => i.type === "skin");
-  const others = merchantPool.filter(i => i.type !== "skin");
+  const pool = getMerchantPool();
+
+  const skins = pool.filter(i => i.type === "skin");
+  const others = pool.filter(i => i.type !== "skin");
 
   const randomSkin = skins[Math.floor(Math.random() * skins.length)];
 
@@ -85,8 +22,6 @@ function refreshMerchant() {
 
   localStorage.setItem("merchantItems", JSON.stringify(selected));
   localStorage.setItem("merchantLastRefresh", Date.now());
-
-  renderMerchant();
 }
 
 function checkMerchantRefresh() {
@@ -191,30 +126,25 @@ function startSlotMachine(item, isWin) {
 
 function buyMerchantItem(item) {
   let clicks = parseInt(localStorage.getItem("clicks")) || 0;
+
+  if (clicks < item.cost) {
+    showPopup("Not enough clicks!", "error");
+    return;
+  }
+
+  clicks -= item.cost;
+  localStorage.setItem("clicks", clicks);
+  updateClicksUI();
+
   if (item.type === "skin") {
-    if (localStorage.getItem(item.id) === "true") {
-      showPopup("You already own this skin!", "error");
-      return;
-    }
-    if (clicks < item.cost) {
-      showPopup("Not enough clicks!", "error");
-      return;
-    }
+    const win = Math.random() <= item.chance;
 
-    clicks -= item.cost;
-    localStorage.setItem("clicks", clicks);
-    const clickDisplay = document.getElementById("ClickCount");
-    if (clickDisplay) clickDisplay.textContent = clicks;
+    startSlotMachine(item, win);
 
-
-    const roll = Math.random();
-    const isWin = roll <= item.chance;
-
-    if (isWin) {
+    if (win) {
       localStorage.setItem(item.id, "true");
     }
 
-    startSlotMachine(item, isWin);
   } else {
     item.effect();
     showPopup(`${item.name} used!`, "success");
