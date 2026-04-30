@@ -1,27 +1,46 @@
 
+
 function renderInventory() {
   const container = document.getElementById("InventoryList");
   if (!container) return;
 
   container.innerHTML = "";
 
-  const ownedSkins = ITEMS.filter(i =>
-    i.type === "skin" &&
-    (localStorage.getItem(i.id) === "true" || i.id === "default")
-  );
+  const currentSkin =
+    localStorage.getItem("CurrentSkin") || "ButtonCommon1.png";
 
-  ownedSkins.forEach(item => {
-    const equipped = localStorage.getItem("CurrentSkin") === item.value;
+ 
+  const skins = ITEMS.filter(item => item.type === "skin");
+
+  skins.forEach(item => {
+    const owned =
+      item.alwaysOwned ||
+      localStorage.getItem(item.id) === "true";
+
+    if (!owned) return;
+
+    const equipped = currentSkin === item.value;
 
     const div = document.createElement("div");
-    div.className = `InventorySlot ${item.rarity}`;
+    div.className = `ShopSlot ${item.rarity}`;
 
     div.innerHTML = `
-      <img src="${item.img}">
-      <button>${equipped ? "Equipped" : "Equip"}</button>
+      <span class="ShopItemName">${item.name}</span>
+      <img src="${item.img}" class="ShopItemIcon">
+
+      <button class="EquipButton" ${equipped ? "disabled" : ""}>
+        ${equipped ? "Equipped" : "Equip"}
+      </button>
     `;
 
-    div.querySelector("button").onclick = () => equipItem(item);
+    const button = div.querySelector("button");
+
+    if (!equipped) {
+      button.addEventListener("click", () => {
+        equipSkin(item.value);
+        renderInventory(); 
+      });
+    }
 
     container.appendChild(div);
   });

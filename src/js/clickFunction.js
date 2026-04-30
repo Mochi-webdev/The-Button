@@ -19,13 +19,14 @@ function setCurrentSkin(skin) {
 function getSkinBonus() {
     const current = localStorage.getItem("CurrentSkin");
 
-    const skin = shopItems.find(item => item.value === current);
+    const skin = ITEMS.find(item => item.value === current);
 
     return skin?.clickBonus || 0;
 }
 function loadSkin() {
     setCurrentSkin(getCurrentSkin());
 }
+
 
 loadSkin();
 

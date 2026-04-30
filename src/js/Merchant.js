@@ -3,6 +3,13 @@ const MERCHANT_REFRESH_TIME = 5 * 60 * 1000;
 function getMerchantPool() {
   return ITEMS.filter(i => i.inMerchant);
 }
+function getMerchantItems() {
+  const saved = localStorage.getItem("merchantItems");
+  if (saved) return JSON.parse(saved);
+
+  refreshMerchant();
+  return JSON.parse(localStorage.getItem("merchantItems"));
+}
 
 function refreshMerchant() {
   const pool = getMerchantPool();
