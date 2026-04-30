@@ -135,26 +135,40 @@
    </button>
 
    
-   <div class="ModeSelectionFrame" id="ModeSelectionFrame">
-     <button class="CloseModeFrame" id="CloseModeFrame">&times;</button>
-     <h2 class="titleHead">Select Game Mode</h2>
-     <div class="ModeGrid" id="ModeGrid">
-       
-     </div>
-   </div>
+    <div class="ModeSelectionFrame" id="ModeSelectionFrame">
+      <button class="CloseModeFrame" id="CloseModeFrame">&times;</button>
+      <h2 class="titleHead">Select Game Mode</h2>
+
+      <!-- AI/Public Toggle -->
+      <div class="MatchTypeToggle">
+        <span class="ToggleLabel">Match Type:</span>
+        <div class="ToggleSwitch">
+          <button class="ToggleOption active" data-type="ai">AI</button>
+          <button class="ToggleOption" data-type="public">Public</button>
+          <button class="ToggleOption" data-type="ranked">Ranked</button>
+        </div>
+      </div>
+
+      <div class="ModeGrid" id="ModeGrid">
+        
+      </div>
+    </div>
 
   
    <div class="ClickGameFrame" id="ClickGameFrame">
      <button class="CloseClickGame" id="CloseClickGame">&times;</button>
      <h2 class="titleHead" id="GameTitle">1v1 Click Battle</h2>
-     <div class="GameArea">
-       <div class="PlayerArea" id="PlayerArea">
-         <div class="PlayerName">You</div>
-         <div class="PlayerScore" id="PlayerScore">0</div>
-         <div class="ClickButton" id="PlayerClickButton">
-           <img src="assets/buttons/ButtonCommon1.png" alt="Click" class="GameButtonImage">
-         </div>
-       </div>
+      <div class="GameArea">
+        <div class="PlayerArea" id="PlayerArea">
+          <div class="PlayerName">You</div>
+          <div class="PlayerSkinPreview">
+            <img src="assets/buttons/ButtonCommon1.png" alt="Your Skin" class="PlayerSkinImage" id="PlayerSkinImage">
+          </div>
+          <div class="PlayerScore" id="PlayerScore">0</div>
+          <div class="ClickButton" id="PlayerClickButton">
+            <img src="assets/buttons/ButtonCommon1.png" alt="Click" class="GameButtonImage">
+          </div>
+        </div>
        <div class="VS">VS</div>
        <div class="OpponentArea" id="OpponentArea">
          <div class="OpponentName" id="OpponentName">Opponent</div>

@@ -814,7 +814,7 @@ body {
   left: 50%;
 
   width: min(90vw, 500px);
-  max-height: 80vh;
+  max-height: 90vh;
 
   padding: 24px;
 
@@ -832,6 +832,7 @@ body {
 
   z-index: 930;
   pointer-events: none;
+  overflow-y: auto;
 }
 
 .ModeSelectionFrame.open {
@@ -887,38 +888,106 @@ body {
   text-align: center;
 }
 
-/* Click Game Frame */
+/* Match Type Toggle */
+.MatchTypeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.ToggleLabel {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+.ToggleSwitch {
+  display: flex;
+  background: #e0e0e0;
+  border-radius: 25px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.ToggleOption {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  color: #666;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ToggleOption.active {
+  background: #4CAF50;
+  color: white;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.ToggleOption:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Player Skin Preview */
+.PlayerSkinPreview {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #4CAF50;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.PlayerSkinImage {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+/* Click Game Frame - Full Screen */
 .ClickGameFrame {
   display: none;
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
 
-  width: min(90vw, 600px);
-  max-height: 90vh;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
 
-  padding: 24px;
+  padding: 20px;
 
-  border-radius: 24px;
+  border-radius: 0;
 
   background: linear-gradient(145deg, #1a1a2e, #16213e);
-  border: 2px solid #0f3460;
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  border: none;
+  box-shadow: none;
 
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   opacity: 0;
-  transform: translate(-50%, -55%) scale(0.92);
+  transform: scale(0.95);
   transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.25s ease;
 
-  z-index: 940;
+  z-index: 1000;
   pointer-events: none;
 }
 
 .ClickGameFrame.open {
   display: flex;
-  transform: translate(-50%, -50%) scale(1);
+  transform: scale(1);
   opacity: 1;
   pointer-events: auto;
 }
@@ -928,46 +997,67 @@ body {
   border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Fullscreen game area adjustments */
 .GameArea {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 60px;
   margin: 20px 0;
   width: 100%;
+  flex: 1;
+  max-height: 60vh;
 }
 
 .PlayerArea, .OpponentArea {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   flex: 1;
 }
 
 .PlayerName, .OpponentName {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 700;
   color: #fff;
 }
 
+.PlayerSkinPreview {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 4px solid #4CAF50;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.PlayerSkinImage {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
+
 .PlayerScore, .OpponentScore {
-  font-size: 48px;
+  font-size: 64px;
   font-weight: 700;
   color: #4CAF50;
-  text-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+  text-shadow: 0 0 30px rgba(76, 175, 80, 0.6);
 }
 
 .OpponentScore {
   color: #f44336;
-  text-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
+  text-shadow: 0 0 30px rgba(244, 67, 54, 0.6);
 }
 
 .ClickButton, .OpponentButton {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  border: 4px solid #0f3460;
+  border: 5px solid #0f3460;
   background: rgba(255, 255, 255, 0.1);
   cursor: pointer;
   display: flex;
@@ -987,38 +1077,46 @@ body {
 }
 
 .VS {
-  font-size: 36px;
+  font-size: 48px;
   font-weight: 700;
   color: #e94560;
-  text-shadow: 0 0 10px rgba(233, 69, 96, 0.6);
+  text-shadow: 0 0 20px rgba(233, 69, 96, 0.8);
+  align-self: center;
 }
 
 .GameInfo {
   color: #ccc;
-  font-size: 14px;
+  font-size: 18px;
   text-align: center;
   margin-bottom: 16px;
 }
 
 .StartGameButton {
-  padding: 12px 32px;
+  padding: 16px 48px;
 
   background: linear-gradient(180deg, #4CAF50, #43a047);
   color: white;
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
 
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
 
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
   transition: all 0.2s ease;
 }
 
 .StartGameButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(76, 175, 80, 0.5);
+}
+
+.StartGameButton:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* Game Over Overlay */
