@@ -150,7 +150,8 @@ window.ITEMS = [
 
     inShop: false,
     inMerchant: true,
-    chance: 0.1
+    chance: 0.1,
+    clickBoost: 0.25
   },
   {
     id: "skin_silver",
@@ -164,7 +165,8 @@ window.ITEMS = [
 
     inShop: false,
     inMerchant: true,
-    chance: 0.4
+    chance: 0.4,
+    clickBoost: 0.2
   },
   {
     id: "skin_bronze",
@@ -178,7 +180,8 @@ window.ITEMS = [
 
     inShop: false,
     inMerchant: true,
-    chance: 0.5
+    chance: 0.5,
+    clickBoost: 0.15
   },
 
   

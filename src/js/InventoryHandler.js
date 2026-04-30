@@ -9,7 +9,7 @@ function renderInventory() {
   const currentSkin =
     localStorage.getItem("CurrentSkin") || "ButtonCommon1.png";
 
- 
+
   const skins = ITEMS.filter(item => item.type === "skin");
 
   skins.forEach(item => {
@@ -28,6 +28,11 @@ function renderInventory() {
       <span class="ShopItemName">${item.name}</span>
       <img src="${item.img}" class="ShopItemIcon">
 
+      <div class="InventoryTooltip">
+        +${Math.floor(item.clickBoost * 100)}% Click Power<br>
+        ${item.desc || ""}
+      </div>
+
       <button class="EquipButton" ${equipped ? "disabled" : ""}>
         ${equipped ? "Equipped" : "Equip"}
       </button>
@@ -38,7 +43,7 @@ function renderInventory() {
     if (!equipped) {
       button.addEventListener("click", () => {
         equipSkin(item.value);
-        renderInventory(); 
+        renderInventory();
       });
     }
 

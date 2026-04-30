@@ -196,7 +196,26 @@ body {
     pointer-events: none;
     overflow: visible;
 }
+.InventoryTooltip {
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
 
+  background: rgba(20,20,20,0.95);
+  color: white;
+
+  padding: 8px;
+  border-radius: 8px;
+
+  font-size: 12px;
+  width: 160px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+  z-index: 999;
+}
 
 .UpgradeFrame.open, .InventoryFrame.open {
     display: flex;
