@@ -12,6 +12,26 @@ const merchantPool = [
     value: "GoldButton.png"
   },
   {
+    id: "skin_Silver",
+    type: "skin",
+    name: "Silver Button",
+    img: "assets/buttons/SilverButton.png",
+    cost: 20000,
+    chance: 0.4,
+    rarity: "rare",
+    value: "SilverButton.png"
+  },
+  {
+    id: "skin_Bronze",
+    type: "skin",
+    name: "Bronze Button",
+    img: "assets/buttons/BronzeButton.png",
+    cost: 10000,
+    chance: 0.5,
+    rarity: "common",
+    value: "BronzeButton.png"
+  },
+  {
     id: "boost_click",
     type: "boost",
      img: "assets/ui/ButtonCurrency.png",
