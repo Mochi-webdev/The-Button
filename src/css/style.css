@@ -200,21 +200,39 @@ body {
   position: absolute;
   bottom: 110%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.95);
 
-  background: rgba(20,20,20,0.95);
+  background: rgba(20, 20, 20, 0.95);
   color: white;
 
-  padding: 8px;
-  border-radius: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
 
-  font-size: 12px;
-  width: 160px;
+  font-size: 13px;
+  width: max-content;
+  max-width: 220px;
+
+  white-space: normal;
 
   opacity: 0;
   pointer-events: none;
-  transition: 0.2s;
+  transition: 0.15s ease;
   z-index: 999;
+}
+
+.InventoryTooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(20, 20, 20, 0.95);
+}
+
+.ShopSlot:hover .InventoryTooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px) scale(1);
 }
 
 .UpgradeFrame.open, .InventoryFrame.open {
@@ -551,26 +569,29 @@ body {
 }
 
 .ShopSlot {
-    display: flex;
-    flex-direction: column;
-    grid: row;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  grid: row;
+  align-items: center;
+  gap: 8px;
 
-    padding: 12px;
+  padding: 12px;
 
-    background: linear-gradient(180deg, #ffffff, #f3f4f6);
-    border-radius: 12px;
-    width: 25%;
+  background: linear-gradient(180deg, #ffffff, #f3f4f6);
+  border-radius: 12px;
+  width: 25%;
 
-    border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 
-    font-size: clamp(14px, 2vw, 16px);
-    font-weight: 600;
+  font-size: clamp(14px, 2vw, 16px);
+  font-weight: 600;
 
-    transition: all 0.18s ease;
+  transition: all 0.18s ease;
 
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  position: relative;
+  overflow: visible;
 }
 
 .ShopButtonBuy, .BuyButtonMerchant {
@@ -803,7 +824,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 40px 120px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
-  display: flex;
   flex-direction: column;
 
   opacity: 0;
@@ -885,7 +905,6 @@ body {
   border: 2px solid #0f3460;
   box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
 
-  display: flex;
   flex-direction: column;
   align-items: center;
 

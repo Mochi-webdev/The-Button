@@ -1,6 +1,4 @@
-// Click 1v1 Game System - Extensible Mode Configuration
 
-// Game Modes Configuration - Easy to customize/add new modes
 const GAME_MODES = [
   {
     id: '1v1',
@@ -8,8 +6,8 @@ const GAME_MODES = [
     description: 'Classic 1 vs 1 click battle',
     icon: '⚔️',
     targetScore: 50,
-    opponentSpeed: 800, // ms between opponent clicks (lower = faster)
-    opponentAccuracy: 0.85, // 0-1, chance opponent clicks on time
+    opponentSpeed: 800, 
+    opponentAccuracy: 0.85, 
   },
   {
     id: '2v2',
@@ -39,7 +37,7 @@ const GAME_MODES = [
     targetScore: 100,
     opponentSpeed: 600,
     opponentAccuracy: 0.9,
-    timeLimit: 30, // seconds
+    timeLimit: 30, 
   },
 ];
 
@@ -51,7 +49,7 @@ let opponentInterval = null;
 let playerClickButton = null;
 let opponentButton = null;
 
-// DOM Elements
+
 const playButton = document.getElementById('PlayButton');
 const modeSelectionFrame = document.getElementById('ModeSelectionFrame');
 const closeModeFrame = document.getElementById('CloseModeFrame');
@@ -71,22 +69,17 @@ const finalScoreEl = document.getElementById('FinalScore');
 const playAgainBtn = document.getElementById('PlayAgainButton');
 const closeOverlayBtn = document.getElementById('CloseOverlayButton');
 
-// Initialize
-function initClickGame() {
-  // Setup Play button to open Mode Selection using global setupFrame from clickFunction.js
-  setupFrame(playButton, modeSelectionFrame, closeModeFrame);
 
-  // Setup close button for Click Game Frame
-  if (closeClickGame) {
-    closeClickGame.addEventListener('click', () => closeGameFrame(clickGameFrame));
-  }
+function initClickGame() {
+  setupFrame(playButton, modeSelectionFrame, closeModeFrame);
+  setupFrame(clickGameFrame, null, closeClickGame);
 
   renderModeCards();
+  setupModeSelection();
   setupClickGame();
   setupGameOverlay();
 }
 
-// Render mode selection cards
 function renderModeCards() {
   modeGrid.innerHTML = '';
   GAME_MODES.forEach(mode => {
@@ -102,25 +95,24 @@ function renderModeCards() {
   });
 }
 
-// Select a game mode
+
 function selectMode(mode) {
   currentMode = mode;
   gameTitle.textContent = mode.name;
   targetScoreEl.textContent = mode.targetScore;
 
-  // Close mode selection and open game frame
-  closeGameFrame(modeSelectionFrame);
-  openGameFrame(clickGameFrame);
+  closeFrame(modeSelectionFrame);
+  openFrame(clickGameFrame);
 
   resetGame();
 }
 
-// Setup mode selection frame handlers
+
 function setupModeSelection() {
-  // Frame already setup via setupFrame
+  
 }
 
-// Setup click game handlers
+
 function setupClickGame() {
   if (!playerClickBtn || !opponentBtn) return;
 
@@ -131,14 +123,14 @@ function setupClickGame() {
   startGameBtn.addEventListener('click', startGame);
 }
 
-// Handle player clicking
+
 function handlePlayerClick() {
   if (!gameActive) return;
 
   playerScore++;
   updateScoreDisplay();
 
-  // Visual feedback
+  
   playerClickButton.style.transform = 'scale(0.95)';
   setTimeout(() => {
     playerClickButton.style.transform = '';
@@ -147,7 +139,7 @@ function handlePlayerClick() {
   checkWinCondition();
 }
 
-// Start the game
+
 function startGame() {
   if (gameActive) return;
 
@@ -158,19 +150,19 @@ function startGame() {
   resetScores();
   updateScoreDisplay();
 
-  // Start opponent AI
+ 
   startOpponentAI();
 
   showPopup('Game started! First to ' + currentMode.targetScore + ' wins!', 'info');
 }
 
-// Reset scores
+
 function resetScores() {
   playerScore = 0;
   opponentScore = 0;
 }
 
-// Reset game state
+
 function resetGame() {
   gameActive = false;
   resetScores();
@@ -187,7 +179,7 @@ function resetGame() {
   }
 }
 
-// Start opponent AI clicking
+
 function startOpponentAI() {
   if (opponentInterval) clearInterval(opponentInterval);
 
@@ -197,12 +189,12 @@ function startOpponentAI() {
   opponentInterval = setInterval(() => {
     if (!gameActive) return;
 
-    // Simulate opponent accuracy (sometimes misses)
+    
     if (Math.random() <= accuracy) {
       opponentScore++;
       updateScoreDisplay();
 
-      // Visual feedback
+      
       opponentButton.style.transform = 'scale(0.95)';
       setTimeout(() => {
         opponentButton.style.transform = '';
@@ -213,13 +205,13 @@ function startOpponentAI() {
   }, speed);
 }
 
-// Update score display
+
 function updateScoreDisplay() {
   if (playerScoreEl) playerScoreEl.textContent = playerScore;
   if (opponentScoreEl) opponentScoreEl.textContent = opponentScore;
 }
 
-// Check if someone won
+
 function checkWinCondition() {
   const target = currentMode.targetScore;
 
@@ -230,7 +222,7 @@ function checkWinCondition() {
   }
 }
 
-// End the game
+
 function endGame(result) {
   gameActive = false;
 
@@ -246,45 +238,68 @@ function endGame(result) {
   gameResultEl.style.color = result === 'win' ? '#4CAF50' : '#f44336';
   finalScoreEl.textContent = `${playerFinal} - ${opponentFinal}`;
 
-  // Show overlay after short delay
   setTimeout(() => {
-    openGameFrame(gameOverOverlay);
+    openFrame(gameOverOverlay);
   }, 500);
 
   showPopup(result === 'win' ? 'You won the match!' : 'You lost!', result === 'win' ? 'success' : 'error');
 }
 
-// Setup game overlay buttons
+
 function setupGameOverlay() {
   playAgainBtn.addEventListener('click', () => {
-    closeGameFrame(gameOverOverlay);
+    closeFrame(gameOverOverlay);
     resetGame();
     startGame();
   });
 
   closeOverlayBtn.addEventListener('click', () => {
-    closeGameFrame(gameOverOverlay);
-    closeGameFrame(clickGameFrame);
+    closeFrame(gameOverOverlay);
+    closeFrame(clickGameFrame);
     resetGame();
   });
 }
 
-// Frame utilities
-function openGameFrame(frame) {
+
+function setupFrame(openBtn, frame, closeBtn) {
+  if (!openBtn || !frame) return;
+
+  openBtn.addEventListener('click', () => {
+    frame.style.display = 'flex';
+    frame.style.pointerEvents = 'auto';
+    requestAnimationFrame(() => frame.classList.add('open'));
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      frame.classList.remove('open');
+      if (frame !== gameOverOverlay) {
+        setTimeout(() => {
+          frame.style.display = 'none';
+          frame.style.pointerEvents = 'none';
+        }, 250);
+      }
+    });
+  }
+}
+
+function openFrame(frame) {
   if (!frame) return;
   frame.style.display = 'flex';
   frame.style.pointerEvents = 'auto';
   requestAnimationFrame(() => frame.classList.add('open'));
 }
 
-function closeGameFrame(frame) {
+function closeFrame(frame) {
   if (!frame) return;
   frame.classList.remove('open');
-  setTimeout(() => {
-    frame.style.display = 'none';
-    frame.style.pointerEvents = 'none';
-  }, 250);
+  if (frame !== gameOverOverlay) {
+    setTimeout(() => {
+      frame.style.display = 'none';
+      frame.style.pointerEvents = 'none';
+    }, 250);
+  }
 }
 
-// Initialize on DOM load
+
 document.addEventListener('DOMContentLoaded', initClickGame);
