@@ -146,6 +146,13 @@ function setupFrame(openBtn, frame, closeBtn) {
         });
     }
 }
+window.updateClicksUI = function () {
+  const clickEl = document.getElementById("ClickCount");
+  if (!clickEl) return;
+
+  const clicks = parseInt(localStorage.getItem("clicks")) || 0;
+  clickEl.textContent = clicks;
+};
 
 setupFrame(
     document.querySelector(".UpgradeButton"),

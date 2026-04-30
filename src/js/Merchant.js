@@ -132,6 +132,13 @@ function startSlotMachine(item, isWin) {
 }
 
 function buyMerchantItem(item) {
+
+  if (localStorage.getItem(item.id) === "true") {
+    showPopup("You already own this item!", "error");
+    return;
+  }
+
+
   let clicks = parseInt(localStorage.getItem("clicks")) || 0;
 
   if (clicks < item.cost) {
@@ -140,8 +147,12 @@ function buyMerchantItem(item) {
   }
 
   clicks -= item.cost;
+
+ 
   localStorage.setItem("clicks", clicks);
-  updateClicksUI();
+
+  const clickEl = document.getElementById("ClickCount");
+  if (clickEl) clickEl.textContent = clicks;
 
   if (item.type === "skin") {
     const win = Math.random() <= item.chance;
@@ -150,6 +161,8 @@ function buyMerchantItem(item) {
 
     if (win) {
       localStorage.setItem(item.id, "true");
+
+      renderInventory();
     }
 
   } else {
@@ -157,7 +170,6 @@ function buyMerchantItem(item) {
     showPopup(`${item.name} used!`, "success");
   }
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   checkMerchantRefresh();
   renderMerchant();
