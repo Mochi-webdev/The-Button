@@ -34,7 +34,7 @@ const merchantPool = [
   {
     id: "boost_click",
     type: "boost",
-     img: "assets/ui/ButtonCurrency.png",
+    img: "assets/ui/ButtonCurrency.png",
     name: "Click Boost Pack",
     desc: "+50 clicks instantly",
     cost: 2000,
@@ -114,8 +114,8 @@ function renderMerchant() {
       ${item.img ? `<img src="${item.img}" class="ShopItemIcon">` : ""}
       <span class="ShopItemDesc">
         ${item.type === "skin"
-          ? `Chance: ${Math.floor(item.chance * 100)}%`
-          : item.desc}
+        ? `Chance: ${Math.floor(item.chance * 100)}%`
+        : item.desc}
       </span>
       <span class="ShopItemCost">Cost: ${item.cost} Clicks</span>
       <button class="BuyButtonMerchant">Buy</button>
@@ -136,7 +136,7 @@ function startSlotMachine(item, isWin) {
     document.getElementById("reel3")
   ];
   const resultText = document.getElementById("slot-result-text");
-  
+
   if (!overlay || !reels[0]) return;
 
   overlay.classList.remove("hidden");
@@ -150,11 +150,11 @@ function startSlotMachine(item, isWin) {
     reel.innerHTML = "";
     for (let i = 0; i < 30; i++) {
       const img = document.createElement("img");
-      img.src = (Math.random() > 0.5) ? placeholderIcon : item.img; 
+      img.src = (Math.random() > 0.5) ? placeholderIcon : item.img;
       img.className = "slot-icon";
       reel.appendChild(img);
     }
-    
+
     const finalImg = document.createElement("img");
     if (isWin) {
       finalImg.src = targetIcon;
@@ -166,10 +166,10 @@ function startSlotMachine(item, isWin) {
 
     reel.style.transition = "none";
     reel.style.transform = "translateY(0)";
-    
+
     setTimeout(() => {
       reel.style.transition = `transform ${2 + index * 0.5}s cubic-bezier(0.1, 0, 0.1, 1)`;
-      reel.style.transform = "translateY(-3600px)"; 
+      reel.style.transform = "translateY(-3600px)";
     }, 50);
   });
 
@@ -182,7 +182,7 @@ function startSlotMachine(item, isWin) {
       resultText.innerText = "SO CLOSE!";
       showPopup("Failed... try again!", "error");
     }
-    
+
     setTimeout(() => {
       overlay.classList.add("hidden");
     }, 2500);
@@ -191,29 +191,29 @@ function startSlotMachine(item, isWin) {
 
 function buyMerchantItem(item) {
   let clicks = parseInt(localStorage.getItem("clicks")) || 0;
-
-  if (clicks < item.cost) {
-    showPopup("Not enough clicks!", "error");
-    return;
-  }
-
-  clicks -= item.cost;
-  localStorage.setItem("clicks", clicks);
-  const clickDisplay = document.getElementById("ClickCount");
-  if (clickDisplay) clickDisplay.textContent = clicks;
-
   if (item.type === "skin") {
     if (localStorage.getItem(item.id) === "true") {
       showPopup("You already own this skin!", "error");
       return;
     }
+    if (clicks < item.cost) {
+      showPopup("Not enough clicks!", "error");
+      return;
+    }
+
+    clicks -= item.cost;
+    localStorage.setItem("clicks", clicks);
+    const clickDisplay = document.getElementById("ClickCount");
+    if (clickDisplay) clickDisplay.textContent = clicks;
+
+
     const roll = Math.random();
     const isWin = roll <= item.chance;
 
     if (isWin) {
       localStorage.setItem(item.id, "true");
     }
-    
+
     startSlotMachine(item, isWin);
   } else {
     item.effect();
@@ -224,5 +224,5 @@ function buyMerchantItem(item) {
 document.addEventListener("DOMContentLoaded", () => {
   checkMerchantRefresh();
   renderMerchant();
-  setInterval(checkMerchantRefresh, 10000); 
+  setInterval(checkMerchantRefresh, 10000);
 });
