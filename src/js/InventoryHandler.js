@@ -10,6 +10,8 @@ function getSkinFileName(name) {
     iceorange: "IceButtonOrange.png",
     icegreen: "IceButtonGreen.png",
     Gold: "GoldButton.png",
+    Bronze: "BronzeButton.png",
+    Silver: "SilverButton.png"
   };
 
   return map[name] || "ButtonCommon1.png";
