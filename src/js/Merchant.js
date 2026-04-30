@@ -183,6 +183,10 @@ function buyMerchantItem(item) {
   if (clickDisplay) clickDisplay.textContent = clicks;
 
   if (item.type === "skin") {
+    if (localStorage.getItem(item.id) === "true") {
+      showPopup("You already own this skin!", "error");
+      return;
+    }
     const roll = Math.random();
     const isWin = roll <= item.chance;
 
