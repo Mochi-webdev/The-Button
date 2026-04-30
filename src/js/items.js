@@ -156,12 +156,12 @@ window.ITEMS = [
   {
     id: "skin_silver",
     name: "Silver Button",
-    img: "assets/buttons/SilverButton.png",
+    img: "assets/buttons/SilberButton.png",
     desc: "Shiny but not too shiny",
     cost: 20000,
     rarity: "rare",
     type: "skin",
-    value: "SilverButton.png",
+    value: "SilberButton.png",
 
     inShop: false,
     inMerchant: true,
