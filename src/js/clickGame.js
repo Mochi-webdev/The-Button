@@ -169,6 +169,27 @@ function renderModeCards() {
   });
 }
 
+function selectMode(mode) {
+  currentMode = mode;
+  closeFrame(modeSelectionFrame);
+
+  if (clickGameFrame) {
+    clickGameFrame.style.display = 'flex';
+    clickGameFrame.style.pointerEvents = 'auto';
+    requestAnimationFrame(() => clickGameFrame.classList.add('open'));
+  }
+
+  if (gameTitle) {
+    gameTitle.textContent = mode.name;
+  }
+
+  if (targetScoreEl) {
+    targetScoreEl.textContent = mode.targetScore;
+  }
+
+  updateOpponentAppearance();
+}
+
 function setupModeSelection() {
   const toggleOptions = document.querySelectorAll('.ToggleOption');
   toggleOptions.forEach(btn => {
