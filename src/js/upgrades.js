@@ -5,6 +5,30 @@ window.updateStatsFrame = function () {
 
   container.innerHTML = "";
 
+  const clickPower = getClickPower();
+  const gemsBoost = getGemsBoost();
+  const currentSkin = localStorage.getItem("CurrentSkin") || "ButtonCommon1.png";
+  const skin = ITEMS.find(item => item.value === currentSkin);
+  const skinBonus = skin?.clickBonus || 0;
+
+  
+  const powerDiv = document.createElement("div");
+  powerDiv.style.cssText = "font-weight: bold; color: #4CAF50; font-size: 18px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1);";
+  powerDiv.textContent = `Click Power: ${clickPower} per click`;
+  container.appendChild(powerDiv);
+
+  const gemsDiv = document.createElement("div");
+  gemsDiv.style.cssText = "font-weight: bold; color: #2196f3; font-size: 16px; margin-bottom: 8px;";
+  gemsDiv.textContent = `Gems Bonus: ${gemsBoost.toFixed(1)}x`;
+  container.appendChild(gemsDiv);
+
+  if (skinBonus > 0) {
+    const skinDiv = document.createElement("div");
+    skinDiv.style.cssText = "font-weight: bold; color: #9c27b0; font-size: 16px; margin-bottom: 8px;";
+    skinDiv.textContent = `Skin Bonus: +${Math.floor(skinBonus * 100)}%`;
+    container.appendChild(skinDiv);
+  }
+
   upgrades.forEach(upg => {
     const level = parseInt(localStorage.getItem(upg.statKey)) || 0;
 
@@ -26,7 +50,7 @@ const upgrades = [
     buttonId: "BuyUpgrade1",
     costTextId: "UpgradeCostClickBoost",
     name: "Click Boost",
-    effectText: (lvl) => `Boost is now ${1 + lvl * 0.5}`,
+    effectText: (lvl) => `Click power: ${1 + lvl} (base) x ${1 + lvl * 0.5} (bonus) = ${(1 + lvl) * (1 + lvl * 0.5)} per click`,
     amount: 1
   },
   {
