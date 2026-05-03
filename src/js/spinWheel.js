@@ -1,5 +1,4 @@
-let spinWheelInstance = null;
-
+﻿// Spin Wheel Implementation
 const WHEEL_PRIZES = [
   { text: '1000 Clicks', type: 'clicks', value: 1000, color: '#4CAF50', textColor: '#fff' },
   { text: '500 Gems', type: 'gems', value: 500, color: '#2196F3', textColor: '#fff' },
@@ -179,6 +178,7 @@ class SpinWheel {
 window.SpinWheel = SpinWheel;
 window.WHEEL_PRIZES = WHEEL_PRIZES;
 
+// Initialize wheel when DOM is ready
 let wheel = null;
 let isSpinning = false;
 
@@ -241,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
         wheelResult.className = `WheelResult ${resultClass}`;
       }
 
+      // Flash animation on canvas
       if (wheel && wheel.draw && wheel.ctx) {
         const originalDraw = wheel.draw.bind(wheel);
         let flashCount = 0;
@@ -328,5 +329,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
-window.SpinWheel = SpinWheel;
