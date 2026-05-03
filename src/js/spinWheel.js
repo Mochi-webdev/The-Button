@@ -188,6 +188,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const wheelResult = document.getElementById('WheelResult');
   const closeWheelBtn = document.getElementById('CloseWheelFrame');
 
+  const wheelOpener = document.querySelector('.WheelButton');
+  if (wheelOpener && wheelFrame) {
+    wheelOpener.addEventListener('click', () => {
+      wheelFrame.style.display = 'flex';
+      wheelFrame.style.pointerEvents = 'auto';
+      requestAnimationFrame(() => wheelFrame.classList.add('open'));
+    });
+  }
+
   const canvas = document.getElementById('SpinWheel');
   if (canvas) {
     wheel = new SpinWheel('SpinWheel', WHEEL_PRIZES, {
