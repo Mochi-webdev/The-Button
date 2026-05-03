@@ -18,7 +18,7 @@ function renderShop() {
       <img src="${item.img}">
       <span>${item.desc}</span>
       <span>Cost: ${item.cost}</span>
-      <button>
+      <button class="ShopBuyBtn">
         ${!owned ? "Buy" : equipped ? "Equipped" : "Equip"}
       </button>
     `;

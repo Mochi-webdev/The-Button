@@ -7,16 +7,16 @@
   <title>TheButton | Game</title>
    <link rel="stylesheet" href="src/css/style.css?v=2.1">
 
-   <script src="src/js/items.js?v=1.3" defer></script>
+  <script src="src/js/items.js?v=1.3" defer></script>
+  <script src="src/js/clickFunction.js?v=2.0" defer></script>
+  <script src="src/js/popup.js?v=1.5" defer></script>
+  <script src="src/js/upgrades.js?v=1.5" defer></script>
+  <script src="src/js/shop.js?v=1.6" defer></script>
+  <script src="src/js/Merchant.js?v=2.4" defer></script>
+  <script src="src/js/InventoryHandler.js?v=1.6" defer></script>
+  <script src="src/js/clickGame.js?v=1.1" defer></script>
+  <script src="src/js/spinWheel.js?v=1.0" defer></script>
 
-   <script src="src/js/clickFunction.js?v=2.0" defer></script>
-   <script src="src/js/popup.js?v=1.5" defer></script>
-   <script src="src/js/upgrades.js?v=1.6" defer></script>
-   <script src="src/js/shop.js?v=1.5" defer></script>
-   <script src="src/js/Merchant.js?v=2.4" defer></script>
-   <script src="src/js/InventoryHandler.js?v=1.6" defer></script>
-   <script src="src/js/clickGame.js?v=1.1" defer></script>
- 
 </head>
 
 <body>
@@ -45,6 +45,7 @@
           alt="Shopping Cart Icon"></button>
       <button class="MerchantButton"><img class="UpgradeLogo" src="assets/ui/Group 9.png" alt="Merchant Icon"></button>
       <button class="InventoryButton"><img class="InventoryImage" src="assets/buttons/ButtonCommon1.png" alt="Inventory Icon"></button>
+      <button class="WheelButton"><img class="UpgradeLogo" src="assets/ui/UpgradeLogo.png" alt="Spin Wheel Icon"></button>
     </div>
 
     <div class="UpgradeFrame" id="UpgradeFrame">
@@ -139,7 +140,7 @@
       <button class="CloseModeFrame" id="CloseModeFrame">&times;</button>
       <h2 class="titleHead">Select Game Mode</h2>
 
-      <!-- AI/Public Toggle -->
+      
       <div class="MatchTypeToggle">
         <span class="ToggleLabel">Match Type:</span>
         <div class="ToggleSwitch">
@@ -185,26 +186,32 @@
    </div>
 
   
-   <div class="GameOverOverlay" id="GameOverOverlay">
-     <div class="GameOverContent">
-       <h2 id="GameResult">You Won!</h2>
-       <p id="FinalScore">50 - 30</p>
-       <button class="PlayAgainButton" id="PlayAgainButton">Play Again</button>
-       <button class="CloseOverlayButton" id="CloseOverlayButton">Close</button>
-     </div>
-   </div>
+    <div class="WheelFrame" id="WheelFrame">
+      <button class="CloseWheelFrame" id="CloseWheelFrame">&times;</button>
+      <h2 class="titleHead">Spin the Wheel</h2>
+      
+      <div class="WheelContainer">
+        <div class="WheelWrapper">
+          <canvas id="SpinWheel" width="400" height="400"></canvas>
+          <div class="WheelPointer"></div>
+          <button class="SpinButton" id="SpinButton">
+            <span class="SpinButtonText">SPIN</span>
+            <span class="SpinCost">100 💎</span>
+          </button>
+        </div>
+        <div class="WheelResult" id="WheelResult"></div>
+      </div>
+    </div>
   </div>
 
-  <div id="slot-machine-overlay" class="hidden">
-  <div class="slot-container">
-    <div class="slot-window">
-      <div class="reel" id="reel1"></div>
-      <div class="reel" id="reel2"></div>
-      <div class="reel" id="reel3"></div>
+  <div class="GameOverOverlay" id="GameOverOverlay">
+    <div class="GameOverContent">
+      <h2 id="GameResult">You Won!</h2>
+      <p id="FinalScore">50 - 30</p>
+      <button class="PlayAgainButton" id="PlayAgainButton">Play Again</button>
+      <button class="CloseOverlayButton" id="CloseOverlayButton">Close</button>
     </div>
-    <div id="slot-result-text">SPINNING...</div>
   </div>
-</div>
 
 </body>
 

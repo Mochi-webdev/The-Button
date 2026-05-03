@@ -114,7 +114,8 @@ body {
 .UpgradeButton,
 .ShopButton,
 .MerchantButton,
-.InventoryButton {
+.InventoryButton,
+.WheelButton {
     width: clamp(60px, 10vw, 90px);
     height: clamp(60px, 10vw, 90px);
 
@@ -131,6 +132,23 @@ body {
     cursor: pointer;
 
     transition: all 0.15s ease-in-out;
+}
+
+.UpgradeButton:hover,
+.ShopButton:hover,
+.MerchantButton:hover,
+.InventoryButton:hover,
+.WheelButton:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.UpgradeButton:active,
+.ShopButton:active,
+.MerchantButton:active,
+.InventoryButton:active,
+.WheelButton:active {
+    transform: scale(0.95);
 }
 
 .UpgradeButton:hover,
@@ -160,7 +178,7 @@ body {
     object-fit: contain;
 }
 
-.UpgradeFrame, .InventoryFrame {
+.UpgradeFrame, .InventoryFrame, .WheelFrame {
     display: none;
     position: fixed;
     top: 50%;
@@ -1075,6 +1093,24 @@ body {
   width: 80%;
   height: 80%;
 }
+.ShopBuyBtn {
+  padding: 8px 14px;
+
+  background: linear-gradient(180deg, #4CAF50, #43a047);
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.15s ease;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
 
 .VS {
   font-size: 48px;
@@ -1097,7 +1133,7 @@ body {
   background: linear-gradient(180deg, #4CAF50, #43a047);
   color: white;
   border: none;
-  border-radius: 30px;
+  border-radius: 25px;
 
   font-size: 20px;
   font-weight: 700;
@@ -1199,4 +1235,181 @@ body {
 
 .CloseOverlayButton:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+.WheelFrame.spinning #SpinWheel {
+  transition: transform 4s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.CloseWheelFrame, .CloseGameOverOverlay {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+
+  width: 36px;
+  height: 36px;
+
+  border-radius: 50%;
+
+  font-size: 22px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.15s ease;
+}
+
+.CloseWheelFrame:hover, .CloseGameOverOverlay:hover {
+  background: #f44336;
+  color: white;
+}
+
+.WheelContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.WheelWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#SpinWheel {
+  border-radius: 50%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  background: white;
+}
+
+.WheelPointer {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 28px solid #f44336;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  z-index: 10;
+}
+
+.WheelPointer::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: #ff5252;
+  border-radius: 50%;
+}
+
+.SpinButton {
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 16px 28px;
+  border: none;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(145deg, #ffd700, #ff8f00);
+  color: #1a0000;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(255, 143, 0, 0.4);
+  transition: all 0.15s ease;
+  z-index: 5;
+}
+
+.SpinButton:hover:not(:disabled) {
+  transform: translateX(-50%) scale(1.08);
+  box-shadow: 0 12px 35px rgba(255, 143, 0, 0.6);
+}
+
+.SpinButton:active:not(:disabled) {
+  transform: translateX(-50%) scale(0.95);
+}
+
+.SpinButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: linear-gradient(145deg, #999, #666);
+  color: #333;
+}
+
+.SpinButtonText {
+  font-size: 20px;
+}
+
+.SpinCost {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.WheelFrame.spinning .SpinButton {
+  pointer-events: none;
+}
+
+.WheelResult {
+  min-height: 40px;
+  padding: 12px 24px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.WheelFrame.spinning .WheelResult {
+  opacity: 0;
+}
+
+.WheelFrame:not(.spinning) .WheelResult:not(:empty) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.WheelResult.win {
+  background: linear-gradient(135deg, #4CAF50, #66BB6A);
+  color: white;
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+}
+
+.WheelResult.lose {
+  background: linear-gradient(135deg, #f44336, #ef5350);
+  color: white;
+  box-shadow: 0 4px 20px rgba(244, 67, 54, 0.3);
+}
+
+.WheelResult.neutral {
+  background: linear-gradient(135deg, #9e9e9e, #bdbdbd);
+  color: white;
+  box-shadow: 0 4px 20px rgba(158, 158, 158, 0.3);
 }
