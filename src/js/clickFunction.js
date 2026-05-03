@@ -175,3 +175,8 @@ setupFrame(
     document.querySelector(".InventoryFrame"),
     document.getElementById("CloseInventoryFrame")
 );
+setupFrame(
+    document.querySelector(".WheelButton"),
+    document.querySelector(".WheelFrame"),
+    document.getElementById("CloseWheelFrame")
+);
