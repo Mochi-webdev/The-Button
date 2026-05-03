@@ -190,11 +190,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const wheelOpener = document.querySelector('.WheelButton');
   if (wheelOpener && wheelFrame) {
+    console.log('WheelButton found, adding click listener');
     wheelOpener.addEventListener('click', () => {
+      console.log('WheelButton clicked!');
       wheelFrame.style.display = 'flex';
       wheelFrame.style.pointerEvents = 'auto';
       requestAnimationFrame(() => wheelFrame.classList.add('open'));
     });
+  } else {
+    console.log('WheelButton or wheelFrame not found:', { wheelOpener, wheelFrame });
   }
 
   const canvas = document.getElementById('SpinWheel');
