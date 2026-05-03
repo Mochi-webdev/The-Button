@@ -178,7 +178,7 @@ class SpinWheel {
 window.SpinWheel = SpinWheel;
 window.WHEEL_PRIZES = WHEEL_PRIZES;
 
-// Initialize wheel when DOM is ready
+
 let wheel = null;
 let isSpinning = false;
 
@@ -187,15 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const spinButton = document.getElementById('SpinButton');
   const wheelResult = document.getElementById('WheelResult');
   const closeWheelBtn = document.getElementById('CloseWheelFrame');
-
-  const wheelOpener = document.querySelector('.WheelButton');
-  if (wheelOpener && wheelFrame) {
-    wheelOpener.addEventListener('click', () => {
-      wheelFrame.style.display = 'flex';
-      wheelFrame.style.pointerEvents = 'auto';
-      requestAnimationFrame(() => wheelFrame.classList.add('open'));
-    });
-  }
 
   const canvas = document.getElementById('SpinWheel');
   if (canvas) {
