@@ -26,11 +26,11 @@ class SpinWheel {
     this.canvas = document.getElementById(canvasId);
     if (!this.canvas) return;
     this.ctx = this.canvas.getContext('2d');
+
     this.prizes = prizes;
     this.options = {
-      rotationResistance: 35,
-      minSpins: 5,
-      spinDuration: 6000,
+      minSpins: 6,
+      spinDuration: 4500,
       ...options
     };
 
@@ -38,19 +38,36 @@ class SpinWheel {
     this.targetRotation = 0;
     this.isSpinning = false;
 
+    this.images = {};
+    this.preloadImages();
+
+    this.resize = this.resize.bind(this);
+    window.addEventListener('resize', this.resize);
+
     this.resize();
-    window.addEventListener('resize', () => this.resize());
-    this.draw();
+  }
+
+  preloadImages() {
+    this.prizes.forEach(p => {
+      if (p.img) {
+        const img = new Image();
+        img.src = p.img;
+        this.images[p.img] = img;
+      }
+    });
   }
 
   resize() {
     const rect = this.canvas.parentElement.getBoundingClientRect();
-    const size = Math.min(400, rect.width - 40, 400);
+    const size = Math.min(420, rect.width - 20);
+
     this.canvas.width = size;
     this.canvas.height = size;
-    this.radius = size / 2 - 10;
+
+    this.radius = size / 2 - 8;
     this.centerX = size / 2;
     this.centerY = size / 2;
+
     this.draw();
   }
 
@@ -59,193 +76,171 @@ class SpinWheel {
     const cx = this.centerX;
     const cy = this.centerY;
     const r = this.radius;
+
     const n = this.prizes.length;
-    const arcAngle = (2 * Math.PI) / n;
+    const arc = (2 * Math.PI) / n;
 
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     for (let i = 0; i < n; i++) {
-      const prize = this.prizes[i];
+      const p = this.prizes[i];
 
-      const startAngle = i * arcAngle + this.rotation - Math.PI / 2;
-      const endAngle = startAngle + arcAngle;
+      const start = i * arc + this.rotation - Math.PI / 2;
+      const end = start + arc;
 
       ctx.beginPath();
       ctx.moveTo(cx, cy);
-      ctx.arc(cx, cy, r, startAngle, endAngle);
+      ctx.arc(cx, cy, r, start, end);
       ctx.closePath();
-      ctx.fillStyle = prize.color;
+      ctx.fillStyle = p.color;
       ctx.fill();
-      ctx.strokeStyle = '#fff';
-      ctx.lineWidth = 2;
-      ctx.stroke();
 
       ctx.save();
       ctx.translate(cx, cy);
-      ctx.rotate(startAngle + arcAngle / 2);
+      ctx.rotate(start + arc / 2);
 
-      if (prize.img) {
-        const img = new Image();
-        img.src = prize.img;
-        const size = r / 4;
-        ctx.drawImage(img, r - size - 10, -size / 2, size, size);
+      if (p.img && this.images[p.img]?.complete) {
+        const imgSize = r * 0.25;
+        ctx.drawImage(this.images[p.img], r - imgSize - 10, -imgSize / 2, imgSize, imgSize);
       }
 
-      ctx.fillStyle = prize.textColor;
-      ctx.font = `bold ${Math.max(10, r / 12)}px Arial`;
-      ctx.textAlign = 'right';
+      ctx.fillStyle = p.textColor;
+      ctx.font = `bold ${Math.max(12, r * 0.08)}px Arial`;
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
 
-      let label = prize.text;
-      if (prize.type === "skin" && prize.chance) {
-        label += ` (${Math.floor(prize.chance * 100)}%)`;
-      }
+      let text = p.text;
+      if (p.type === "skin") text += " 10%";
 
-      ctx.fillText(label, r - 15, 20);
+      ctx.fillText(text, r - 15, 0);
+
       ctx.restore();
     }
 
     ctx.beginPath();
     ctx.arc(cx, cy, r / 6, 0, 2 * Math.PI);
-    ctx.fillStyle = '#fff';
+    ctx.fillStyle = "#fff";
     ctx.fill();
 
-    ctx.fillStyle = '#333';
-    ctx.font = `bold ${r / 8}px Arial`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('SPIN', cx, cy);
+    ctx.fillStyle = "#333";
+    ctx.font = `bold ${r / 7}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("SPIN", cx, cy);
   }
 
-  spin(winningIndex) {
+  spin(index) {
     if (this.isSpinning) return;
+
     this.isSpinning = true;
 
     const n = this.prizes.length;
-    const arcAngle = (2 * Math.PI) / n;
+    const arc = (2 * Math.PI) / n;
 
-    const extraRotations = this.options.minSpins * 2 * Math.PI;
-    const targetArcCenter = winningIndex * arcAngle + arcAngle / 2;
-    const currentMod = ((this.rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    const spins = this.options.minSpins * 2 * Math.PI;
+    const target = index * arc + arc / 2;
 
-    this.targetRotation = this.rotation + extraRotations +
-      (2 * Math.PI - currentMod) + (3 * Math.PI / 2 - targetArcCenter);
+    const current = this.rotation % (2 * Math.PI);
 
-    const startTime = performance.now();
+    this.targetRotation = this.rotation + spins + (2 * Math.PI - current) + (3 * Math.PI / 2 - target);
+
+    const start = performance.now();
     const duration = this.options.spinDuration;
 
-    const easeOut = t => 1 - Math.pow(1 - t, 4);
+    const ease = t => 1 - Math.pow(1 - t, 4);
 
-    const animate = (now) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const eased = easeOut(progress);
+    const anim = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const e = ease(t);
 
-      this.rotation += (this.targetRotation - this.rotation) * eased;
+      this.rotation = this.rotation + (this.targetRotation - this.rotation) * e;
       this.draw();
 
-      if (progress < 1) {
-        requestAnimationFrame(animate);
+      if (t < 1) {
+        requestAnimationFrame(anim);
       } else {
         this.rotation = this.targetRotation;
         this.draw();
         this.isSpinning = false;
-        if (this.onSpinComplete) {
-          this.onSpinComplete(this.prizes[winningIndex]);
-        }
+        if (this.onSpinComplete) this.onSpinComplete(this.prizes[index]);
       }
     };
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(anim);
   }
 }
 
-let wheel = null;
+let wheel;
 let isSpinning = false;
 
-document.addEventListener('DOMContentLoaded', () => {
-  const wheelFrame = document.getElementById('WheelFrame');
-  const spinButton = document.getElementById('SpinButton');
-  const wheelResult = document.getElementById('WheelResult');
-  const canvas = document.getElementById('SpinWheel');
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("SpinWheel");
+  const spinBtn = document.getElementById("SpinButton");
+  const result = document.getElementById("WheelResult");
 
-  if (canvas) {
-    wheel = new SpinWheel('SpinWheel', WHEEL_PRIZES, {
-      minSpins: 6,
-      spinDuration: 4500
-    });
+  wheel = new SpinWheel("SpinWheel", WHEEL_PRIZES);
 
-    wheel.onSpinComplete = (prize) => {
-      isSpinning = false;
-      spinButton.disabled = false;
+  wheel.onSpinComplete = (prize) => {
+    isSpinning = false;
+    spinBtn.disabled = false;
 
-      let message = '';
+    let msg = "";
 
-      if (prize.type === 'clicks') {
-        let clicks = parseInt(localStorage.getItem('clicks')) || 0;
-        clicks += prize.value;
-        localStorage.setItem('clicks', clicks);
-        message = `+${prize.value} Clicks`;
-
-        document.getElementById('ClickCount').textContent = clicks;
-
-      } else if (prize.type === 'gems') {
-        let gems = parseInt(localStorage.getItem('gems')) || 0;
-        gems += prize.value;
-        localStorage.setItem('gems', gems);
-        message = `+${prize.value} Gems`;
-
-        document.getElementById('GemCount').textContent = gems;
-
-      } else if (prize.type === 'skin') {
-        const owned = localStorage.getItem(prize.itemId) === "true";
-
-        if (owned) {
-          let clicks = parseInt(localStorage.getItem("clicks")) || 0;
-          clicks += 500;
-          localStorage.setItem("clicks", clicks);
-          document.getElementById("ClickCount").textContent = clicks;
-          message = 'Duplicate → +500 clicks';
-        } else {
-          localStorage.setItem(prize.itemId, "true");
-          message = 'New Skin Unlocked';
-        }
+    if (prize.type === "gems") {
+      let g = +localStorage.getItem("gems") || 0;
+      g += prize.value;
+      localStorage.setItem("gems", g);
+      document.getElementById("GemCount").textContent = g;
+      msg = `+${prize.value} Gems`;
+    } 
+    else if (prize.type === "clicks") {
+      let c = +localStorage.getItem("clicks") || 0;
+      c += prize.value;
+      localStorage.setItem("clicks", c);
+      document.getElementById("ClickCount").textContent = c;
+      msg = `+${prize.value} Clicks`;
+    } 
+    else if (prize.type === "skin") {
+      if (localStorage.getItem(prize.itemId)) {
+        let c = +localStorage.getItem("clicks") || 0;
+        c += 500;
+        localStorage.setItem("clicks", c);
+        document.getElementById("ClickCount").textContent = c;
+        msg = "Duplicate → +500 clicks";
       } else {
-        message = 'Try again';
+        localStorage.setItem(prize.itemId, true);
+        msg = "New Skin Unlocked";
       }
+    } 
+    else if (prize.type === "double") {
+      msg = "Spin Again!";
+    } 
+    else {
+      msg = "Try again";
+    }
 
-      wheelResult.innerHTML = message;
+    result.textContent = msg;
+    result.className = "WheelResult win";
+  };
 
-      if (prize.img) {
-        const img = document.createElement("img");
-        img.src = prize.img;
-        img.style.width = "80px";
-        wheelResult.appendChild(img);
-      }
-    };
-  }
-
-  spinButton.addEventListener('click', () => {
+  spinBtn.onclick = () => {
     if (isSpinning) return;
 
-    let gems = parseInt(localStorage.getItem('gems')) || 0;
+    let gems = +localStorage.getItem("gems") || 0;
     if (gems < 100) return;
 
     gems -= 100;
-    localStorage.setItem('gems', gems);
-    document.getElementById('GemCount').textContent = gems;
+    localStorage.setItem("gems", gems);
+    document.getElementById("GemCount").textContent = gems;
 
     isSpinning = true;
-    spinButton.disabled = true;
+    spinBtn.disabled = true;
 
-    const weights = WHEEL_PRIZES.map(p => {
-      if (p.type === "skin") return p.chance || 0.1;
-      if (p.type === "none") return 0.5;
-      return 1.5;
-    });
-
+    const weights = WHEEL_PRIZES.map(p => p.type === "skin" ? p.chance : p.type === "none" ? 0.5 : 1.5);
     let total = weights.reduce((a, b) => a + b, 0);
     let rand = Math.random() * total;
-    let index = 0;
 
+    let index = 0;
     for (let i = 0; i < weights.length; i++) {
       rand -= weights[i];
       if (rand <= 0) {
@@ -255,5 +250,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     wheel.spin(index);
-  });
+  };
 });
