@@ -29,8 +29,8 @@ class SpinWheel {
 
     this.prizes = prizes;
     this.options = {
-      minSpins: 6,
-      spinDuration: 4500,
+      minSpins: 18,
+      spinDuration: 6500,
       ...options
     };
 
