@@ -129,56 +129,68 @@ class SpinWheel {
     ctx.fillText("SPIN", cx, cy);
   }
 
-spin(index) {
-  if (this.isSpinning) return;
+  spin(index) {
+    if (this.isSpinning) return;
 
-  this.isSpinning = true;
+    this.isSpinning = true;
 
-  const n = this.prizes.length;
-  const arc = (2 * Math.PI) / n;
+    const n = this.prizes.length;
+    const arc = (2 * Math.PI) / n;
 
-  const spins = this.options.minSpins * 2 * Math.PI;
-  const target = index * arc + arc / 2;
+    const spins = this.options.minSpins * 2 * Math.PI;
+    const target = index * arc + arc / 2;
 
-  const current = this.rotation % (2 * Math.PI);
+    const current = this.rotation % (2 * Math.PI);
 
-  const finalRotation =
-    this.rotation +
-    spins +
-    (2 * Math.PI - current) +
-    (3 * Math.PI / 2 - target);
+    const finalRotation =
+      this.rotation +
+      spins +
+      (2 * Math.PI - current) +
+      (3 * Math.PI / 2 - target);
 
-  const startRotation = this.rotation;
+    const startRotation = this.rotation;
 
-  const startTime = performance.now();
-  const duration = this.options.spinDuration;
+    const startTime = performance.now();
+    const duration = this.options.spinDuration;
 
-  const ease = t => 1 - Math.pow(1 - t, 4);
+    const ease = t => 1 - Math.pow(1 - t, 4);
 
-  const animate = (now) => {
-    const elapsed = now - startTime;
-    const t = Math.min(elapsed / duration, 1);
-    const eased = ease(t);
+    const animate = (now) => {
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      const eased = ease(t);
 
-    this.rotation = startRotation + (finalRotation - startRotation) * eased;
+      this.rotation = startRotation + (finalRotation - startRotation) * eased;
 
-    this.draw();
-
-    if (t < 1) {
-      requestAnimationFrame(animate);
-    } else {
-      this.rotation = finalRotation;
       this.draw();
-      this.isSpinning = false;
+      if (t < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        this.rotation = finalRotation;
+        this.draw();
+        this.isSpinning = false;
 
-      if (this.onSpinComplete) {
-        this.onSpinComplete(this.prizes[index]);
+        const n = this.prizes.length;
+        const arc = (2 * Math.PI) / n;
+
+        // normalize rotation
+        const normalized = ((this.rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+
+        // pointer is at top (−90°)
+        const pointerAngle = (3 * Math.PI / 2);
+
+        const adjusted = (normalized + pointerAngle) % (2 * Math.PI);
+
+        const winningIndex = Math.floor(adjusted / arc);
+
+        if (this.onSpinComplete) {
+          this.onSpinComplete(this.prizes[winningIndex]);
+        }
       }
-    }
-  };
+    };
 
-  requestAnimationFrame(animate);
-}
+    requestAnimationFrame(animate);
+  }
 }
 
 let wheel;
@@ -203,14 +215,14 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("gems", g);
       document.getElementById("GemCount").textContent = g;
       msg = `+${prize.value} Gems`;
-    } 
+    }
     else if (prize.type === "clicks") {
       let c = +localStorage.getItem("clicks") || 0;
       c += prize.value;
       localStorage.setItem("clicks", c);
       document.getElementById("ClickCount").textContent = c;
       msg = `+${prize.value} Clicks`;
-    } 
+    }
     else if (prize.type === "skin") {
       if (localStorage.getItem(prize.itemId)) {
         let c = +localStorage.getItem("clicks") || 0;
@@ -222,10 +234,10 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(prize.itemId, true);
         msg = "New Skin Unlocked";
       }
-    } 
+    }
     else if (prize.type === "double") {
       msg = "Spin Again!";
-    } 
+    }
     else {
       msg = "Try again";
     }
