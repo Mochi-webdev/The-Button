@@ -75,6 +75,17 @@ const upgrades = [
     effectText: (lvl) => `Auto clicks: ${lvl}/sec`,
     amount: 5
   },
+    {
+    id: "Upgrade4",
+    costBase: 500,
+    costScale: 1.14,
+    statKey: "Upgrade4",
+    buttonId: "BuyUpgrade4",
+    costTextId: "UpgradeCostClickBoost2",
+    name: "Power Boost",
+    effectText: (lvl) => `Boost your Clicks by: ${lvl}%`,
+    amount: 10
+  },
 ];
 
 updateStatsFrame();
