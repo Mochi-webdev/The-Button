@@ -137,7 +137,21 @@ window.ITEMS = [
     inMerchant: false
   },
 
-  
+  {
+    id: "skin_wheel",
+    name: "WheelButton",
+    img: "assets/buttons/WheelButton.png",
+    desc: "Legendary shine",
+    cost: 0,
+    rarity: "epic",
+    type: "skin",
+    value: "WheelButton.png",
+
+    inShop: false,
+    inMerchant: false,
+    chance: 0.1,
+    clickBoost: 0.25
+  },
   {
     id: "skin_gold",
     name: "Golden Button",
