@@ -129,45 +129,56 @@ class SpinWheel {
     ctx.fillText("SPIN", cx, cy);
   }
 
-  spin(index) {
-    if (this.isSpinning) return;
+spin(index) {
+  if (this.isSpinning) return;
 
-    this.isSpinning = true;
+  this.isSpinning = true;
 
-    const n = this.prizes.length;
-    const arc = (2 * Math.PI) / n;
+  const n = this.prizes.length;
+  const arc = (2 * Math.PI) / n;
 
-    const spins = this.options.minSpins * 2 * Math.PI;
-    const target = index * arc + arc / 2;
+  const spins = this.options.minSpins * 2 * Math.PI;
+  const target = index * arc + arc / 2;
 
-    const current = this.rotation % (2 * Math.PI);
+  const current = this.rotation % (2 * Math.PI);
 
-    this.targetRotation = this.rotation + spins + (2 * Math.PI - current) + (3 * Math.PI / 2 - target);
+  const finalRotation =
+    this.rotation +
+    spins +
+    (2 * Math.PI - current) +
+    (3 * Math.PI / 2 - target);
 
-    const start = performance.now();
-    const duration = this.options.spinDuration;
+  const startRotation = this.rotation;
 
-    const ease = t => 1 - Math.pow(1 - t, 4);
+  const startTime = performance.now();
+  const duration = this.options.spinDuration;
 
-    const anim = (now) => {
-      const t = Math.min((now - start) / duration, 1);
-      const e = ease(t);
+  const ease = t => 1 - Math.pow(1 - t, 4);
 
-      this.rotation = this.rotation + (this.targetRotation - this.rotation) * e;
+  const animate = (now) => {
+    const elapsed = now - startTime;
+    const t = Math.min(elapsed / duration, 1);
+    const eased = ease(t);
+
+    this.rotation = startRotation + (finalRotation - startRotation) * eased;
+
+    this.draw();
+
+    if (t < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      this.rotation = finalRotation;
       this.draw();
+      this.isSpinning = false;
 
-      if (t < 1) {
-        requestAnimationFrame(anim);
-      } else {
-        this.rotation = this.targetRotation;
-        this.draw();
-        this.isSpinning = false;
-        if (this.onSpinComplete) this.onSpinComplete(this.prizes[index]);
+      if (this.onSpinComplete) {
+        this.onSpinComplete(this.prizes[index]);
       }
-    };
+    }
+  };
 
-    requestAnimationFrame(anim);
-  }
+  requestAnimationFrame(animate);
+}
 }
 
 let wheel;
