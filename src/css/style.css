@@ -401,7 +401,8 @@ body {
 
 .BuyUpgrade1,
 .BuyUpgrade2,
-.BuyUpgrade3 {
+.BuyUpgrade3,
+.BuyUpgrade4 {
     margin-left: auto;
 
     padding: 8px 14px;
@@ -423,23 +424,31 @@ body {
 }
 
 .BuyUpgrade1:hover,
-.BuyUpgrade2:hover {
+.BuyUpgrade2:hover,
+.BuyUpgrade3:hover,
+.BuyUpgrade4:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .BuyUpgrade1:active,
-.BuyUpgrade2:active {
+.BuyUpgrade2:active,
+.BuyUpgrade3:active,
+.BuyUpgrade4:active {
     transform: scale(0.96);
 }
 
 .BuyUpgrade1.affordable,
-.BuyUpgrade2.affordable {
+.BuyUpgrade2.affordable,  
+.BuyUpgrade3.affordable,
+.BuyUpgrade4.affordable {
     background: linear-gradient(180deg, #4CAF50, #43a047);
 }
 
 .BuyUpgrade1.expensive,
-.BuyUpgrade2.expensive {
+.BuyUpgrade2.expensive,
+.BuyUpgrade3.expensive,
+.BuyUpgrade4.expensive {
     background: linear-gradient(180deg, #999, #777);
     cursor: not-allowed;
 }
